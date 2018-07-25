@@ -1,38 +1,32 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
-export default class SingleGrass extends Component {
-  constructor() {
-    super()
-    this.state = {
-      title: '',
-      pic: '',
-      description: '',
-      reviews: [],
-      quantity: 0 //saving this; just in case we have time to increment or decrement our grass product
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  componentDidMount() {
-    //this.setState()
-  }
-  handleSubmit(event) {}
-  render() {
-    return (
-      <React.Fragment>
-        <h1>{this.state.title}</h1>
-        <img src={this.state.pic} height="300" width="300" />
-        <p>{this.state.description}</p>
-        <input type="submit" onClick={this.handleSubmit}>
-          Add to Cart
-        </input>
-        <ul>
-          {this.state.reviews.map(review => (
-            <li key={review.id}>
-              {review.name} wrote: {review.description}
-            </li>
-          ))}
-        </ul>
-      </React.Fragment>
-    )
+function SingleGrass(props) {
+  return (
+    <React.Fragment>
+      <h1>{props.product.title}</h1>
+      <img src={props.pic} height="300" width="300" />
+      <p>{props.description}</p>
+      <input type="submit" onClick={this.handleSubmit}>
+        Add to Cart
+      </input>
+      <ul>
+        {props.reviews.map(review => (
+          <li key={review.id}>
+            {review.name} wrote: {review.description}
+          </li>
+        ))}
+      </ul>
+    </React.Fragment>
+  )
+}
+
+function mapStateToProps(state) {
+  return {
+    product: state.product
   }
 }
+// function mapDispatchToProps(){
+
+// }
+export default connect(mapStateToProps)(SingleGrass)
