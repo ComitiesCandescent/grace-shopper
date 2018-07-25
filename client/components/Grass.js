@@ -1,22 +1,18 @@
 import React, {Component} from 'react'
 import {HashRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
-export default class Grass extends Component {
-  constructor() {}
-
-  componentDidMount() {}
-
-  render() {
-    return (
-      <div className="singleProduct">
+function Grass(props){
+    const product = props.product
+    return(
+      <div className = 'singleProduct'>
         <div>
-          {/* this link will go to the single grass view */}
-          <Link>
-            <h3>Product Name</h3>
+          {/* this link will eventually go to the single grass view */}
+          <Link to ='/'>
+            <h3>{product.name}</h3>
           </Link>
-          <img src="" />
-          <h4>DESCRIPTION ivfjbsdojabfekl </h4>
-          <h4>PRICE</h4>
+          <img src = ''/>
+          <h4>{product.description}</h4>
+          <h4>{product.price}</h4>
         </div>
         <div>
           <select>{/* quantity options */}</select>
@@ -25,4 +21,5 @@ export default class Grass extends Component {
       </div>
     )
   }
-}
+
+export default Grass
