@@ -1,16 +1,9 @@
 import react, {Component} from 'react'
+import { connect } from 'react-redux';
 import Grass from './Grass'
 
-export default class GrassList extends Component{
-  constructor(){
-
-  }
-
-  componentDidMount(){
-
-  }
-
-  render(){
+function GrassList(props){
+    const products = props.products
     return(
       <div>
         <h2>Grasses For Sale</h2>
@@ -20,4 +13,3 @@ export default class GrassList extends Component{
       </div>
     )
   }
-}
