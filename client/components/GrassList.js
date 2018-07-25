@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 import Grass from './Grass'
 
 export default class GrassList extends Component {
-  constructor() {
+  constructor() { }
 
-  }
-
-  componentDidMount() {
-
-  }
+  componentDidMount() { }
 
   render() {
     return (

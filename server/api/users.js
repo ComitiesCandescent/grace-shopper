@@ -15,3 +15,12 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:userId/cart', (req, res, next) => {
+  try {
+    // get all products
+    res.json('hi')
+  } catch (err) {
+    next(err)
+  }
+})
