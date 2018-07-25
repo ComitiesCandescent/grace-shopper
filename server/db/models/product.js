@@ -13,9 +13,12 @@ const Product = db.define('product', {
     type: Sequelize.FLOAT
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue:
       'https://previews.123rf.com/images/digitalgenetics/digitalgenetics1112/digitalgenetics111200025/11350545-3d-colorful-grass-on-white-background.jpg'
+  },
+  description: {
+    type: Sequelize.TEXT
   }
 })
 Product.beforeCreate(productOne => {
