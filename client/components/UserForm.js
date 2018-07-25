@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default props => {
+const UserForm = () => {
   return (
     <React.Fragment>
       <form>
@@ -30,3 +30,5 @@ export default props => {
     </React.Fragment>
   )
 }
+
+export default UserForm
