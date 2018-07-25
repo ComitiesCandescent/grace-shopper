@@ -1,12 +1,13 @@
-import React from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
-import PropTypes from '../../../../Library/Caches/typescript/2.9/node_modules/@types/prop-types'
-import {connect} from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react-redux'
-import {Link} from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom'
-import {logout} from '../store'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+
+const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <h1>TEST</h1>
+    <h1>Grass R Us2</h1>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -17,12 +18,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </a>
         </div>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
     </nav>
     <hr />
   </div>
