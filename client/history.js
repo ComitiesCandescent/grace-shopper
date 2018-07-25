@@ -1,5 +1,5 @@
-import createHistory from '../../../Library/Caches/typescript/2.9/node_modules/@types/history/createBrowserHistory'
-import createMemoryHistory from '../../../Library/Caches/typescript/2.9/node_modules/@types/history/createMemoryHistory'
+import createHistory from 'history/createBrowserHistory'
+import createMemoryHistory from 'history/createMemoryHistory'
 
 const history =
   process.env.NODE_ENV === 'test' ? createMemoryHistory() : createHistory()
