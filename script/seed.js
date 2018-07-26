@@ -1,5 +1,5 @@
 const db = require(`../server/db`)
-const {Product, User, Review} = require(`../server/db/models`)
+const { Product, User, Review } = require(`../server/db/models`)
 
 const grasses = [
   {
@@ -26,7 +26,7 @@ const users = [
     name: `Kenneth Lai`,
     street: `hood`,
     city: `Rack City`,
-    state: `Rack State`,
+    state: `FL`,
     zipcode: 51134,
     email: `knthslai@gmail.com`
   },
@@ -34,7 +34,7 @@ const users = [
     name: `Ali Aftab`,
     street: `hooder`,
     city: `Hooder City`,
-    state: `Detroit`,
+    state: `MI`,
     zipcode: 58008,
     email: `itisaftab@geocities.com`
   }
@@ -56,7 +56,7 @@ const reviews = [
 // const seed = () => Promise.all(users.map(user => User.create(user))).then(() => Promise.all(grasses.map(grass => Product.create(grass)))).then(() => Promise.all(reviews.map(review => Review.create(review))))
 
 async function seed() {
-  await db.sync({force: true})
+  await db.sync({ force: true })
   console.log(`db synced!`)
 
   const usersP = await Promise.all(users.map(user => User.create(user)))
@@ -72,7 +72,7 @@ async function seed() {
 const main = () => {
   console.log(`Syncing db...`)
   db
-    .sync({force: true})
+    .sync({ force: true })
     .then(() => {
       console.log(`Seeding databse...`)
       return seed()

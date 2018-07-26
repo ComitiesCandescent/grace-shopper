@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
-import {me} from './store'
+import { Login, Signup, UserHome } from './components'
+import { me } from './store'
 import Home from './components/Home'
 import SingleProduct from './components/SingleProduct'
 
@@ -15,7 +15,8 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path='/:productId' component = {SingleProduct}/>
+      <Route path="/signup" component={Signup} />
+      <Route exact path='/:productId' component={SingleProduct} />
     </Switch>
   )
 }

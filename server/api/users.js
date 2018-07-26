@@ -28,3 +28,12 @@ router.get(`/:userId/cart`, (req, res, next) => {
     next(err)
   }
 })
+//api/users/ -> Post
+router.post(`/`, async (req, res, next) => {
+  try {
+    const newUser = await User.findOrCreate(req.body)
+    res.json(newUser)
+  } catch (error) {
+    next(error)
+  }
+})
