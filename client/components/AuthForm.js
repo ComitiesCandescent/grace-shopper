@@ -1,18 +1,40 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth} from '../store'
+import { auth } from '../store'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const { name, displayName, handleSubmit, error } = props
 
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
+          <label htmlFor="name">Name </label>
+          <input
+            name="name"
+            type="text"
+            //value
+            required
+          />
+          <label htmlFor="address">Street </label>
+          <input
+            name="address"
+            type="text"
+            // value
+            required
+          />
+          <label htmlFor="city">City </label>
+          <input name="city" type="text" required />
+          <label htmlFor="state">State </label>
+          <input name="state" type="text" required />
+          <label htmlFor="zipcode" type="text">
+            Zip Code
+        </label>
+          <input name="zipcode" type="number" required />
           <label htmlFor="email">
             <small>Email</small>
           </label>
@@ -22,14 +44,14 @@ const AuthForm = props => {
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input name="password" type="password" required />
         </div>
         <div>
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      {/* <a href="/auth/google">{displayName} with Google</a> */}
     </div>
   )
 }
@@ -43,17 +65,18 @@ const AuthForm = props => {
  */
 const mapLogin = state => {
   return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error
+    // name: `login`,
+    // displayName: `Login`,
+    // error: state.user.error
+    currUser: state.userState.currUser
   }
 }
 
 const mapSignup = state => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.user.error
+    // name: `signup`,
+    // displayName: `Sign Up`,
+    // error: state.user.error
   }
 }
 
