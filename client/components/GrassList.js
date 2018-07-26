@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 import Grass from './Grass'
 
 function GrassList(props) {
@@ -8,7 +8,11 @@ function GrassList(props) {
     <div>
       <h2>Grass For Sale</h2>
       {products.map(product => {
-        <Grass product={product} />
+        return (
+          <li key={product.id}>
+            <Grass product={product} />
+          </li>
+        )
       })}
     </div>
   )
