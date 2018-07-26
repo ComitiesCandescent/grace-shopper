@@ -4,6 +4,7 @@ import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Login, Signup, UserHome } from './components'
 import { me } from './store'
+import GrassList from './components/GrassList'
 
 /**
  * COMPONENT
@@ -28,7 +29,9 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {/* <GrassList /> */}
+        <h2>Home component goes here</h2>
+        {/* <Route component={Login} /> */}
       </Switch>
     )
   }

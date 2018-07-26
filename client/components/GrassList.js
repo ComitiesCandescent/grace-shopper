@@ -1,19 +1,23 @@
-import React, { Component } from 'react'
+import react, { Component } from 'react'
+import { connect } from 'react-redux';
 import Grass from './Grass'
 
-export default class GrassList extends Component {
-  constructor() { }
+function GrassList(props) {
+  const products = props.products
+  return (
+    <div>
+      <h2>Grass For Sale</h2>
+      {products.map(product => {
+        <Grass product={product} />
+      })}
+    </div>
+  )
+}
 
-  componentDidMount() { }
-
-  render() {
-    return (
-      <div>
-        <h2>Grasses For Sale</h2>
-        {products.map(product => {
-          <Grass />
-        })}
-      </div>
-    )
+const mapStateToProps = state => {
+  return {
+    products: state.products
   }
 }
+
+export default connect(mapStateToProps)(GrassList)
