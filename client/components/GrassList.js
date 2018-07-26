@@ -1,4 +1,4 @@
-import react, { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Grass from './Grass'
 
