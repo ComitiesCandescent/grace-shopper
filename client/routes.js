@@ -30,7 +30,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         {/* <GrassList /> */}
-        <h2>GrassList component goes here</h2>
+        <h2>Home component goes here</h2>
         {/* <Route component={Login} /> */}
       </Switch>
     )
