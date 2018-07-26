@@ -18,13 +18,13 @@ export const UserHome = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     email: state.user.email
   }
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapStateToProps, null)(UserHome)
 
 /**
  * PROP TYPES

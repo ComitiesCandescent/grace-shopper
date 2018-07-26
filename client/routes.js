@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Route, Switch } from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome } from './components'
-import { me } from './store'
-import GrassList from './components/GrassList'
+import {Login, Signup, UserHome} from './components'
+import {me} from './store'
+import Home from './components/Home'
 
 /**
  * COMPONENT
@@ -15,7 +15,7 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props
+    const {isLoggedIn} = this.props
 
     return (
       <Switch>
@@ -30,8 +30,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         {/* <GrassList /> */}
-        <h2>Home component goes here</h2>
-        {/* <Route component={Login} /> */}
+        <Route exact path="/" component={Home} />
       </Switch>
     )
   }

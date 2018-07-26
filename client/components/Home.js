@@ -1,12 +1,11 @@
 import React from 'react'
-import GrassList from './GrassList'
-import Navbar from './Navbar'
+import ProductList from './ProductList'
+// import Navbar from './navbar'
 
 const Home = () => {
   return (
     <div>
-      <Navbar />
-      <GrassList />
+      <ProductList />
     </div>
   )
 }
