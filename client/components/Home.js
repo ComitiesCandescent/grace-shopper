@@ -1,14 +1,14 @@
 import React from 'react'
-import GrassList from './GrassList'
 import Navbar from './Navbar'
+import ProductList from './ProductList'
 
-const Home = () => {
-  return (
+const Home = () =>{
+  return(
     <div>
-      <Navbar />
-      <GrassList />
+      <ProductList />
     </div>
   )
+
 }
 
 export default Home
