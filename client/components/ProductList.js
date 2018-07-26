@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchAllProducts} from '../store/product'
-// import ProductCard from './ProductCard'
+import {Button, Card} from 'semantic-ui-react'
+import ProductCard from './ProductCard'
 
 class ProductList extends Component {
   componentDidMount() {
@@ -9,12 +10,15 @@ class ProductList extends Component {
   }
   render() {
     const products = this.props.products
+    console.log('products: ', products)
     return (
       <div>
         <h2>Grass For Sale</h2>
-        {/* {products.map(product =>{
-            <ProductCard product = {product}/>
-          })} */}
+        <Card.Group centered products={products}>
+          {products.map(product => {
+            return <ProductCard key={product.id} product={product} />
+          })}
+        </Card.Group>
       </div>
     )
   }
