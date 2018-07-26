@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {HashRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
-function Grass(props){
+function ProductCard(props){
     const product = props.product
     return(
       <div className = 'singleProduct'>
