@@ -57,8 +57,6 @@ const reviews = [
 
 async function seed() {
   await db.sync({force: true})
-  console.log(`db synced!`)
-
   const usersP = await Promise.all(users.map(user => User.create(user)))
   const grassesP = await Promise.all(
     grasses.map(grass => Product.create(grass))
@@ -66,7 +64,6 @@ async function seed() {
   const reviewsP = await Promise.all(
     reviews.map(review => Review.create(review))
   )
-  console.log(`seeded successfully`)
 }
 
 const main = () => {

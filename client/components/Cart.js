@@ -1,31 +1,30 @@
-import React from 'react'
-import Navbar from '../navbar'
-// import {connect} from 'react-redux'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
-const Cart = () => {
-  return (
-    <div>
-      <Navbar />
-      <h1>cart HERE</h1>
-    </div>
-  )
+class Cart extends Component {
+  componentDidMount() {
+    console.log('mounted')
+    // this.props.loadProducts()
+  }
+
+  render() {
+    return <h1>Cart</h1>
+  }
 }
 
-export default Cart
+const mapStateToProps = state => {
+  return {
+    // singleCampus: campus,
+    // enrolledStudents: enrolledStudents
+  }
+}
 
-// const mapStateToProps = state => {
-//   return {
-//     singleCampus: campus,
-//     enrolledStudents: enrolledStudents
-//   }
-// }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    // loadCampus: () => {
+    //   dispatch(fetchSingleCampus(ownProps.match.params.campusId))
+    // }
+  }
+}
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     loadCampus: () => {
-//       dispatch(fetchSingleCampus(ownProps.match.params.campusId))
-//     }
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)
