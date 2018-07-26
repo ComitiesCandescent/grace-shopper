@@ -22,4 +22,4 @@ function ProductCard(props){
     )
   }
 
-export default Grass
+export default ProductCard
