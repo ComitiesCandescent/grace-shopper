@@ -14,6 +14,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route path="/signup" component={Signup} />
     </Switch>
   )
 }
@@ -52,16 +53,6 @@ export default Routes
 /**
  * CONTAINER
  */
-<<<<<<< HEAD
-const mapState = state => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.userState.currUser.id
-
-  }
-}
-=======
 // const mapState = state => {
 //   return {
 //     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
@@ -69,7 +60,6 @@ const mapState = state => {
 //     isLoggedIn: !!state.user.id
 //   }
 // }
->>>>>>> master
 
 // const mapDispatch = dispatch => {
 //   return {

@@ -11,8 +11,16 @@ const REMOVE_USER = `REMOVE_USER`
 /**
  * INITIAL STATE
  */
-const defaultUser = {
-  currUser: {},
+const initialState = {
+  currUser: {
+    name: ``,
+    street: ``,
+    city: ``,
+    state: ``,
+    zipcode: 0,
+    email: ``,
+    password: ``
+  },
   guest: false
 }
 
@@ -37,7 +45,7 @@ export const newUser = (user) => async dispatch => {
 export const me = () => async dispatch => {
   try {
     const res = await axios.get(`/auth/me`)
-    dispatch(getUser(res.data || defaultUser))
+    dispatch(getUser(res.data || initialState))
   } catch (err) {
     console.error(err)
   }
@@ -72,7 +80,7 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function (state = defaultUser, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case NEW_USER:
       return {
@@ -85,7 +93,7 @@ export default function (state = defaultUser, action) {
         currUser: action.user
       }
     case REMOVE_USER:
-      return defaultUser
+      return initialState
     default:
       return state
   }
