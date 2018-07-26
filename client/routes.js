@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { Login, Signup, UserHome } from './components'
 import { me } from './store'
 import Home from './components/Home'
+import SingleProduct from './components/SingleProduct'
 
 /**
  * COMPONENT
@@ -15,6 +16,7 @@ const Routes = () => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/signup" component={Signup} />
+      <Route exact path='/:productId' component={SingleProduct} />
     </Switch>
   )
 }
