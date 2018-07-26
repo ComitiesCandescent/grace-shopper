@@ -30,8 +30,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         {/* <GrassList /> */}
-        <Route exact path = '/' component = {Home} />
-
+        <Route exact path="/" component={Home} />
       </Switch>
     )
   }
