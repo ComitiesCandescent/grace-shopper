@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {HashRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import React, {Component} from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
+import {HashRouter as Router, Route, Switch, Link} from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom'
 
 function ProductCard(props){
     const product = props.product

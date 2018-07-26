@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import createLogger from 'redux-logger'
+import createLogger from '../../../../Library/Caches/typescript/2.9/node_modules/@types/redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import userReducer from './user'
