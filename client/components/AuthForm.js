@@ -6,11 +6,15 @@ import { newUser } from '../store'
  * COMPONENT
  */
 class AuthForm extends Component {
-
-  handleChange = (event) => {
+  constructor() {
+    super()
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleChange(event) {
     this.props.currUser[event.target.name] = event.target.value
   }
-  handleSubmit = (event) => {
+  handleSubmit(event) {
     event.preventDefault()
     this.props.newUser(this.props.currUser)
   }
