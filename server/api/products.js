@@ -14,7 +14,11 @@ router.get('/', async (req, res, next) => {
 // /api/products/:productId
 router.get('/:productId', async (req, res, next) => {
   try {
-    res.json(await Product.findById(req.params.productId))
+    res.json(await Product.findOne({
+      where:{
+        id: req.params.productId
+      }
+    }))
   } catch (error) {
     next(error)
   }
