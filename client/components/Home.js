@@ -1,14 +1,13 @@
-import React from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
-import Navbar from './navbar'
+import React from 'react'
 import ProductList from './ProductList'
+// import Navbar from './navbar'
 
-const Home = () =>{
-  return(
+const Home = () => {
+  return (
     <div>
       <ProductList />
     </div>
   )
-
 }
 
 export default Home

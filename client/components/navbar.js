@@ -1,7 +1,7 @@
-import React from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
-import PropTypes from '../../../../Library/Caches/typescript/2.9/node_modules/@types/prop-types'
-import {connect} from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react-redux'
-import {NavLink} from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom'
+import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => {

@@ -1,37 +1,37 @@
-import React, { Component } from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
-import { connect } from '../../../../Library/Caches/typescript/2.9/node_modules/@types/react-redux';
-import ProductCard from './ProductCard'
-import { fetchAllProducts } from '../store/product'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {fetchAllProducts} from '../store/product'
+// import ProductCard from './ProductCard'
 
-class ProductList extends Component{
-    componentDidMount(){
-      this.props.loadProducts()
-    }
-    render(){
-      const products = this.props.products
-      return(
-        <div>
-          <h2>Grass For Sale</h2>
-          {/* {products.map(product =>{
+class ProductList extends Component {
+  componentDidMount() {
+    this.props.loadProducts()
+  }
+  render() {
+    const products = this.props.products
+    return (
+      <div>
+        <h2>Grass For Sale</h2>
+        {/* {products.map(product =>{
             <ProductCard product = {product}/>
           })} */}
-        </div>
-      )
-    }
+      </div>
+    )
+  }
 }
 
-  const mapStateToProps = state => {
-    return{
-      products: state.productState.products
+const mapStateToProps = state => {
+  return {
+    products: state.productState.products
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadProducts: () => {
+      dispatch(fetchAllProducts())
     }
   }
+}
 
-  const mapDispatchToProps = dispatch =>{
-    return {
-      loadProducts: () =>{
-        dispatch(fetchAllProducts())
-      }
-    }
-  }
-
-  export default connect(mapStateToProps, mapDispatchToProps)(ProductList)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList)
