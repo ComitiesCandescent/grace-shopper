@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchAllProducts} from '../store/product'
-import {Button, Card} from 'semantic-ui-react'
+import {Card} from 'semantic-ui-react'
 import ProductCard from './ProductCard'
 
 class ProductList extends Component {
@@ -10,7 +10,6 @@ class ProductList extends Component {
   }
   render() {
     const products = this.props.products
-    console.log('products: ', products)
     return (
       <div>
         <h2>Grass For Sale</h2>
