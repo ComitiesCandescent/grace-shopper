@@ -1,5 +1,5 @@
 const db = require(`../server/db`)
-const {Product, User, Review} = require(`../server/db/models`)
+const { Product, User, Review } = require(`../server/db/models`)
 
 const grasses = [
   {
@@ -26,7 +26,7 @@ const users = [
     name: `Kenneth Lai`,
     street: `hood`,
     city: `Rack City`,
-    state: `Rack State`,
+    state: `FL`,
     zipcode: 51134,
     email: `knthslai@gmail.com`
   },
@@ -34,7 +34,7 @@ const users = [
     name: `Ali Aftab`,
     street: `hooder`,
     city: `Hooder City`,
-    state: `Detroit`,
+    state: `MI`,
     zipcode: 58008,
     email: `itisaftab@geocities.com`
   }
@@ -69,7 +69,7 @@ async function seed() {
 const main = () => {
   console.log(`Syncing db...`)
   db
-    .sync({force: true})
+    .sync({ force: true })
     .then(() => {
       console.log(`Seeding databse...`)
       return seed()
