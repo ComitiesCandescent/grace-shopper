@@ -1,6 +1,13 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import {Card, Icon, Image} from 'semantic-ui-react'
+import {Card, Icon, Image, Button} from 'semantic-ui-react'
+import ProductList from './ProductList';
+
+
+function twoDecimals (price){
+  return price.toFixed(2)
+}
+
 
 const ProductCard = props => {
   const product = props.product
@@ -8,7 +15,7 @@ const ProductCard = props => {
     <Card>
       <Image src={product.imageUrl} />
       <Card.Content>
-        <NavLink to={`/api/products/${product.id}`} activeClassName="active">
+        <NavLink to={`/${product.id}`} activeClassName="active">
           <Card.Header>{product.name}</Card.Header>
         </NavLink>
 
@@ -18,16 +25,15 @@ const ProductCard = props => {
         <Card.Description>{product.description}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <a>
-          <Icon name="user" />
-          ${product.price}
-        </a>
+        <i className="dollar sign icon">{twoDecimals(product.price)}</i>
       </Card.Content>
       <Card.Content extra>
-        <a>
-          <Icon name="user" />
-          Add to cart
-        </a>
+      <div className="ui vertical animated button" tabIndex="0">
+        <div className="hidden content">Add</div>
+        <div className="visible content">
+          <i className="shop icon"/>
+        </div>
+      </div>
       </Card.Content>
     </Card>
 
