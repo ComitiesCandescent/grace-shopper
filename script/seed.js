@@ -21,6 +21,7 @@ const grasses = [
     description: `Ok if you got tired of smelling grass and dead grass, how about now you just smell grass thats on fire. Must be 18 or older to purchase.`
   }
 ]
+
 const users = [
   {
     name: `Kenneth Lai`,
