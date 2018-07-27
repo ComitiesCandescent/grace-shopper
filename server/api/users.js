@@ -20,14 +20,6 @@ router.get(`/:userId`, async (req, res, next) => {
   }
 })
 
-router.get(`/:userId/cart`, (req, res, next) => {
-  try {
-    // get all products
-    res.json(`hi`)
-  } catch (err) {
-    next(err)
-  }
-})
 //api/users/ -> Post
 router.post(`/`, async (req, res, next) => {
   try {

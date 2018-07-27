@@ -1,5 +1,5 @@
 const db = require(`../server/db`)
-const { Product, User, Review } = require(`../server/db/models`)
+const {Product, User, Review, Cart} = require(`../server/db/models`)
 
 const grasses = [
   {
@@ -21,6 +21,7 @@ const grasses = [
     description: `Ok if you got tired of smelling grass and dead grass, how about now you just smell grass thats on fire. Must be 18 or older to purchase.`
   }
 ]
+
 const users = [
   {
     name: `Kenneth Lai`,
@@ -39,6 +40,7 @@ const users = [
     email: `itisaftab@geocities.com`
   }
 ]
+
 const reviews = [
   {
     title: `G is for Grass`,
@@ -53,6 +55,16 @@ const reviews = [
     productId: 3
   }
 ]
+
+const carts = [
+  {
+    userId: 1
+  },
+  {
+    userId: 2
+  }
+]
+
 // const seed = () => Promise.all(users.map(user => User.create(user))).then(() => Promise.all(grasses.map(grass => Product.create(grass)))).then(() => Promise.all(reviews.map(review => Review.create(review))))
 
 async function seed() {
@@ -64,14 +76,18 @@ async function seed() {
   const reviewsP = await Promise.all(
     reviews.map(review => Review.create(review))
   )
+  const cartsP = await Promise.all(carts.map(cart => Cart.create(cart)))
 }
 
 const main = () => {
-  console.log(`Syncing db...`)
+  console.log(`Syncing DB...`)
   db
-    .sync({ force: true })
+    .sync({force: true})
     .then(() => {
-      console.log(`Seeding databse...`)
+      console.log(`DB synced`)
+    })
+    .then(() => {
+      console.log(`Seeding DB...`)
       return seed()
     })
     .catch(err => {
