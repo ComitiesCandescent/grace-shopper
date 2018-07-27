@@ -17,7 +17,7 @@ class AuthForm extends Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.newUserFunc(this.props.newUser)
-    console.log('looking for history push', this)
+    // console.log(this.props.history.push)
   }
   render() {
     return (

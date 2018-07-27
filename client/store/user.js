@@ -40,6 +40,7 @@ export const newUser = user => async dispatch => {
   try {
     const res = await axios.post(`/api/users`, user)
     dispatch(newUserAct(res.data))
+    history.push(`/`)
   } catch (err) {
     console.error(err)
   }
