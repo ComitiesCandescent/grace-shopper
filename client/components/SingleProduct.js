@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/product'
+import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
 import {Card, Icon, Image, Button} from 'semantic-ui-react'
 
 function twoDecimals(price) {
@@ -8,8 +9,20 @@ function twoDecimals(price) {
 }
 
 class SingleProduct extends Component {
+  constructor() {
+    super()
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.onClick = this.onClick.bind(this)
+  }
+
   componentDidMount() {
     this.props.loadSingleProduct()
+    console.log('FIX USER ID LATER!!!!!: ')
+    this.props.loadCartProducts(1)
+  }
+
+  onClick(productId) {
+    this.props.loadProduct(productId)
   }
 
   render() {
@@ -31,10 +44,18 @@ class SingleProduct extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className="ui vertical animated button" tabIndex="0">
-            <div className="hidden content">Add</div>
-            <div className="visible content">
-              <i className="shop icon" />
-            </div>
+            <button
+              type="button"
+              className="ui button active"
+              onClick={() => {
+                this.onClick(singleProduct.id)
+              }}
+            >
+              <div className="hidden content">Add</div>
+              <div className="visible content">
+                <i className="shop icon" />
+              </div>
+            </button>
           </div>
         </Card.Content>
       </Card>
@@ -50,7 +71,8 @@ class SingleProduct extends Component {
 
 const mapStateToProps = state => {
   return {
-    singleProduct: state.productState.singleProduct
+    singleProduct: state.productState.singleProduct,
+    products: state.cartState.products
   }
 }
 
@@ -58,6 +80,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadSingleProduct: () => {
       dispatch(fetchSingleProduct(ownProps.match.params.productId))
+    },
+    loadCartProducts: userId => {
+      dispatch(fetchCartProducts(userId))
+    },
+    loadProduct: productId => {
+      dispatch(fetchProductToAdd(productId))
     }
   }
 }

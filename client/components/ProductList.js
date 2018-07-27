@@ -8,6 +8,11 @@ class ProductList extends Component {
   componentDidMount() {
     this.props.loadProducts()
   }
+
+  onClick(productId) {
+    this.props.loadProduct(productId)
+  }
+
   render() {
     const products = this.props.products
     return (
