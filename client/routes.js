@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Route, Switch } from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Home, SingleProduct, Cart} from './components'
 import {me} from './store'
@@ -12,9 +12,11 @@ import {me} from './store'
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/:userId/cart" component={Cart} />
+      <Route exact path="/signup" component={Signup} />
+      <Route exact path="/login" component={Login} />
       <Route exact path="/:productId" component={SingleProduct} />
+      {/* <Route exact path="/:userId/cart" component={Cart} /> */}
+      <Route exact path="/" component={Home} />
     </Switch>
   )
 }

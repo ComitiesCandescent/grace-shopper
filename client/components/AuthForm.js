@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { newUser } from '../store'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {newUser, writeNewUser} from '../store'
 
 /**
  * COMPONENT
@@ -12,23 +12,30 @@ class AuthForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange(event) {
-    this.props.currUser[event.target.name] = event.target.value
+    this.props.writeNewUser({[event.target.name]: event.target.value})
   }
   handleSubmit(event) {
     event.preventDefault()
-    this.props.newUser(this.props.currUser)
+    this.props.newUserFunc(this.props.newUser)
+    // console.log(this.props.history.push)
   }
   render() {
-    console.log(`hit`)
     return (
       <React.Fragment>
-        <form onSubmit={this.handleSubmit} className="ui form" >
+        <form className="ui form">
           <h4 className="ui dividing header">Signup info:</h4>
           <div className="field">
             <label>Name</label>
             <div className="two fields">
               <div className="field">
-                <input onChange={this.handleChange} required type="text" name="name" placeholder="Name" value={this.props.currUser.name} />
+                <input
+                  onChange={this.handleChange}
+                  required
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={this.props.currUser.name}
+                />
               </div>
             </div>
           </div>
@@ -36,17 +43,37 @@ class AuthForm extends Component {
             <label>Billing Address</label>
             <div className="fields">
               <div className="twelve wide field">
-                <input onChange={this.handleChange} required type="text" name="street" placeholder="Street Address" value={this.props.currUser.street} />
+                <input
+                  onChange={this.handleChange}
+                  required
+                  type="text"
+                  name="street"
+                  placeholder="Street Address"
+                  value={this.props.currUser.street}
+                />
               </div>
               <div className="four wide field">
-                <input onChange={this.handleChange} required type="number" name="zipcode" placeholder="zipcode" value={this.props.currUser.zipcode} />
+                <label>City</label>
+                <input
+                  onChange={this.handleChange}
+                  required
+                  type="text"
+                  name="city"
+                  placeholder="city"
+                  value={this.props.currUser.city}
+                />
               </div>
             </div>
           </div>
           <div className="two fields">
             <div className="field">
               <label>State</label>
-              <select name='state' onChange={this.handleChange} required className="ui fluid dropdown">
+              <select
+                name="state"
+                onChange={this.handleChange}
+                required
+                className="ui fluid dropdown"
+              >
                 <option value="">State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -100,11 +127,28 @@ class AuthForm extends Component {
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
               </select>
+              <div className="four wide field">
+                <input
+                  onChange={this.handleChange}
+                  required
+                  type="number"
+                  name="zipcode"
+                  placeholder="zipcode"
+                  value={this.props.currUser.zipcode}
+                />
+              </div>
               <div className="field">
                 <label>E-mail Address:</label>
                 <div className="fields">
                   <div className="twelve wide field">
-                    <input onChange={this.handleChange} required type="text" name="email" placeholder="E-mail Address" value={this.props.currUser.email} />
+                    <input
+                      onChange={this.handleChange}
+                      required
+                      type="text"
+                      name="email"
+                      placeholder="E-mail Address"
+                      value={this.props.currUser.email}
+                    />
                   </div>
                 </div>
               </div>
@@ -112,15 +156,29 @@ class AuthForm extends Component {
                 <label>Password</label>
                 <div className="fields">
                   <div className="twelve wide field">
-                    <input onChange={this.handleChange} required type="password" name="password" placeholder="Password" value={this.props.currUser.password} />
+                    <input
+                      onChange={this.handleChange}
+                      required
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      value={this.props.currUser.password}
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="ui button" type='submit' tabIndex="0">Submit Order</div>
+            <button
+              className="ui button"
+              type="submit"
+              tabIndex="0"
+              onClick={this.handleSubmit}
+            >
+              Submit Order
+            </button>
           </div>
-        </form >
-      </React.Fragment >
+        </form>
+      </React.Fragment>
     )
   }
 }
@@ -133,11 +191,16 @@ class AuthForm extends Component {
  *   can stay DRY with interfaces that are very similar to each other!
  */
 export default connect(
-  (state) => ({
-    currUser: state.userState.currUser
+  state => ({
+    currUser: state.userState.currUser,
+    newUser: state.userState.newUser
   }),
-  (dispatch) => ({
-    newUser: user => {
+  dispatch => ({
+    writeNewUser: info => {
+      dispatch(writeNewUser(info))
+    },
+    newUserFunc: user => {
       dispatch(newUser(user))
     }
-  }))(AuthForm)
+  })
+)(AuthForm)
