@@ -31,6 +31,9 @@ class Cart extends Component {
 
   render() {
     const products = this.props.products
+    const singleProducts = getSingle(products)
+    console.log('singleProducts: ', singleProducts);
+
     return (
       <div className="ui items">
         <h1>Cart</h1>
@@ -44,7 +47,7 @@ class Cart extends Component {
                 <div className="content">
                   <div className="header">{product.name}</div>
                   <div className="meta">
-                    <span className="price">{twoDecimals(product.price)}</span>
+                    <span className="price">${twoDecimals(product.price)}</span>
                   </div>
                   <div className="meta">
                     <span className="quantity">
@@ -62,6 +65,19 @@ class Cart extends Component {
     )
   }
 }
+
+const getSingle = (products) => {
+
+}
+  // let singleProduct = [];
+  // for (let i = 0; i < products.length; i++){
+  //   if (!singleProduct.includes(products[i])){
+  //     singleProduct.push(products[i])
+  //   }
+  // }
+  // return singleProduct
+  let productList = [];
+
 
 const mapStateToProps = state => {
   return {

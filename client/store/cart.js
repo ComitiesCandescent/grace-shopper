@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GET_CART_PRODUCTS = 'GET_CART_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
+const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -20,6 +21,12 @@ const getCartProducts = products => ({
   type: GET_CART_PRODUCTS,
   products
 })
+
+const removeCartProduct = product => ({
+  type: REMOVE_PRODUCT,
+  product
+})
+
 
 const addProduct = product => ({
   type: ADD_PRODUCT,
@@ -45,6 +52,10 @@ export const fetchProductToAdd = productId => async dispatch => {
   } catch (err) {
     console.error(err)
   }
+}
+
+export const deleteProduct = productId => async dispatch => {
+  const res = await axios.delete(``)
 }
 
 /**
