@@ -23,7 +23,7 @@ router.get(`/:userId`, async (req, res, next) => {
 //api/users/ -> Post
 router.post(`/`, async (req, res, next) => {
   try {
-    const newUser = await User.findOrCreate(req.body)
+    const newUser = await User.create(req.body)
     res.json(newUser)
   } catch (error) {
     next(error)
