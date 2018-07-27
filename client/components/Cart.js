@@ -18,6 +18,17 @@ class Cart extends Component {
     this.props.loadCartProducts()
   }
 
+  findQuantity(productName) {
+    const productsArr = this.props.products
+    let quantity = 0
+    for (let i = 0; i < productsArr.length; i++) {
+      if (productsArr[i].name === productName) {
+        quantity++
+      }
+    }
+    return quantity
+  }
+
   render() {
     const products = this.props.products
     return (
@@ -33,29 +44,15 @@ class Cart extends Component {
                 <div className="content">
                   <div className="header">{product.name}</div>
                   <div className="meta">
-                    <span className="price">$1200</span>
-                    <span className="stay">1 Month</span>
+                    <span className="price">{twoDecimals(product.price)}</span>
                   </div>
-                  <div className="description">
-                    <p />
+                  <div className="meta">
+                    <span className="quantity">
+                      {this.findQuantity(product.name)}
+                    </span>
                   </div>
                 </div>
               </div>
-
-              // <Card key={product.id}>
-              //   <Image src={product.imageUrl} />
-              //   <Card.Content>
-              //     <NavLink to={`/${product.id}`} activeClassName="active">
-              //       <Card.Header>{product.name}</Card.Header>
-              //     </NavLink>
-              //     <Card.Description>{product.description}</Card.Description>
-              //   </Card.Content>
-              //   <Card.Content extra>
-              //     <i className="dollar sign icon">
-              //       {twoDecimals(product.price)}
-              //     </i>
-              //   </Card.Content>
-              // </Card>
             )
           })
         ) : (
