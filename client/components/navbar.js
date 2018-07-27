@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => {
+const Navbar = ({handleClick, isLoggedIn, name}) => {
   // return (
   //   <nav className="navbar navbar-default">
   //     <div className="container-fluid">
@@ -73,6 +73,7 @@ const Navbar = ({handleClick, isLoggedIn}) => {
                 </NavLink>
               </li>
             </ul>
+            <h3>Hi {name}</h3>
           </div>
         </div>
       </nav>
@@ -113,7 +114,8 @@ const Navbar = ({handleClick, isLoggedIn}) => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.userState.currUser.id
+    isLoggedIn: !!state.userState.currUser.id,
+    name: state.userState.currUser.name
   }
 }
 
