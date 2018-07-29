@@ -11,14 +11,16 @@ class AuthForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   handleChange(event) {
     this.props.writeNewUser({[event.target.name]: event.target.value})
   }
+
   handleSubmit(event) {
     event.preventDefault()
     this.props.newUserFunc(this.props.newUser)
-    // console.log(this.props.history.push)
   }
+
   render() {
     return (
       <React.Fragment>
@@ -183,13 +185,6 @@ class AuthForm extends Component {
   }
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateTothis.Props' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchTothis.Props'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 export default connect(
   state => ({
     currUser: state.userState.currUser,
