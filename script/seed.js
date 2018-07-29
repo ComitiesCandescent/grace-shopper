@@ -6,7 +6,13 @@ const grasses = [
     name: `Grasp grass`,
     price: 2.5,
     imageUrl: `https://previews.123rf.com/images/nataliafedorenko/nataliafedorenko0905/nataliafedorenko090500053/4867643-a-male-hand-with-its-fingers-picking-up-the-grass-.jpg`,
-    description: `Grass that grabs you`
+    description: `Grass that grabs you back!`
+  },
+  {
+    name: `Rainbow grass`,
+    price: 10,
+    imageUrl: `https://previews.123rf.com/images/gongzstudio/gongzstudio1208/gongzstudio120800272/14918360-rainbow-grass.jpg`,
+    description: `Probably not great for the environment, but at least now you have all of the colors you could possibly imagine.`
   },
   {
     name: `Dead grass`,
@@ -67,12 +73,6 @@ const grasses = [
     price: 2.7,
     imageUrl: `https://fateclick.com/images/article/20170302141711055.jpg`,
     description: `Straight from the mouth of the cow.`
-  },
-  {
-    name: `Rainbow grass`,
-    price: 10,
-    imageUrl: `https://previews.123rf.com/images/gongzstudio/gongzstudio1208/gongzstudio120800272/14918360-rainbow-grass.jpg`,
-    description: `Probably not great for the environment, but at least now you have all of the colors you could possibly imagine.`
   }
 ]
 

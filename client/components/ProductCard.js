@@ -46,9 +46,7 @@ class ProductCard extends React.Component {
         </Card.Content>
         <Card.Content extra>
           <div className="ui vertical animated button" tabIndex="0">
-            <button
-              type="button"
-              className="ui button active"
+            <Button
               onClick={() => {
                 this.onClick(product.id)
               }}
@@ -57,7 +55,7 @@ class ProductCard extends React.Component {
               <div className="visible content">
                 <i className="shop icon" />
               </div>
-            </button>
+            </Button>
           </div>
         </Card.Content>
       </Card>

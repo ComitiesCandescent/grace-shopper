@@ -93,6 +93,11 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
               </NavLink>
             </li>
             <li className="active">
+              <NavLink to="/:userId/cart" activeClassName="active">
+                Your Cart <span className="sr-only">(current)</span>
+              </NavLink>
+            </li>
+            <li className="active">
               <NavLink to="/login" activeClassName="active">
                 Login <span className="sr-only">(current)</span>
               </NavLink>
