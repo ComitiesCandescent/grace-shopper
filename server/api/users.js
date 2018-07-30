@@ -22,6 +22,15 @@ router.get(`/:userId`, async (req, res, next) => {
   }
 })
 
+// DELETE /api/users/:userId
+router.delete(`/:userId`, (req, res, next) => {
+  User.destroy({where: {id: req.params.userId}})
+    .then(() => {
+      res.sendStatus(204)
+    })
+    .catch(next)
+})
+
 // POST /api/users
 router.post(`/`, async (req, res, next) => {
   try {

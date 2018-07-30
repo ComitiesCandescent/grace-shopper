@@ -59,8 +59,17 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
                 </NavLink>
               </li>
               <li className="active">
-                <NavLink to="/:userId/cart" activeClassName="active">
+                <NavLink to="/users/:userId/cart" activeClassName="active">
                   Your Cart <span className="sr-only">(current)</span>
+                </NavLink>
+              </li>
+              <li className="active">
+                <NavLink
+                  to="/users/:userId/profile"
+                  activeClassName="active"
+                  onClick={handleClick}
+                >
+                  Your Profile <span className="sr-only">(current)</span>
                 </NavLink>
               </li>
               <li className="active">
