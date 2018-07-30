@@ -25,8 +25,11 @@ class UserProfile extends Component {
             <p>
               {user.city}, {user.state} {user.zipcode}
             </p>
+            <NavLink to={`/users/${user.id}/edit`}>
+              <Button content="Edit" />
+            </NavLink>
             <NavLink to="/" onClick={() => this.props.deleteThisUser()}>
-              <Button content="Delete Account" />
+              <Button content="Delete" />
             </NavLink>
           </React.Fragment>
         ) : (

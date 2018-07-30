@@ -20,11 +20,13 @@ const initialState = {
 const NEW_USER = `NEW_USER`
 const GET_USER = `GET_USER`
 const REMOVE_USER = `REMOVE_USER`
+const EDIT_USER = `EDIT_USER`
 
 // Action creators
 const gotNewUser = user => ({type: NEW_USER, user})
 const gotUser = user => ({type: GET_USER, user})
 const gotRemoveUser = () => ({type: REMOVE_USER})
+const gotEditUser = user => ({type: EDIT_USER, user})
 
 // Thunk creators
 export const fetchUser = userId => {
@@ -71,6 +73,17 @@ export const deleteUser = userId => {
   }
 }
 
+export const editUser = (userData, userId) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/users/${userId}`, userData)
+      return dispatch(gotEditUser(data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 // Reducer
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -86,6 +99,11 @@ export default function(state = initialState, action) {
       }
     case REMOVE_USER:
       return initialState
+    case EDIT_USER:
+      return {
+        ...state,
+        currUser: action.user
+      }
     default:
       return state
   }
