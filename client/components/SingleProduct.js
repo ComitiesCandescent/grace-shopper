@@ -64,7 +64,6 @@ class SingleProduct extends Component {
         <Reviews reviews= {this.props.reviews} />
       </Card>
     )
-
     //    {/* {singleProduct.reviews.map(review => (
     //         <li key={review.id}>
     //           {review.name} wrote: {review.description}
