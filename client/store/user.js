@@ -43,7 +43,7 @@ export const fetchUser = userId => {
 export const fetchUserByEmail = email => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/users/${email}`)
+      const res = await axios.get(`/api/users/email/${email}`)
       return dispatch(gotUser(res.data))
     } catch (err) {
       console.error(err)
@@ -62,11 +62,11 @@ export const postUser = user => {
   }
 }
 
-export const login = () => async dispatch => {
+export const login = userId => async dispatch => {
   try {
-    const res = await axios.get(`/auth/login`)
+    const res = await axios.get(`/users/${userId}`)
     dispatch(gotUser(res.data))
-    history.push(`/`)
+    // history.push(`/`)
   } catch (err) {
     console.error(err)
   }

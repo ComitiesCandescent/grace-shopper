@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchUserByEmail} from '../store'
+import {fetchUserByEmail, login} from '../store'
 // import PropTypes from 'prop-types'
 // import {auth} from '../store'
 
