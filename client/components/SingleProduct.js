@@ -4,7 +4,7 @@ import {fetchSingleProduct} from '../store/product'
 import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
 import {fetchReviewsByProduct} from '../store/review'
 import Reviews from './Reviews'
-import {Card, Image} from 'semantic-ui-react'
+import {Card, Image, Button} from 'semantic-ui-react'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -46,20 +46,10 @@ class SingleProduct extends Component {
           </i>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui vertical animated button" tabIndex="0">
-            <button
-              type="button"
-              className="ui button active"
-              onClick={() => {
-                this.onClick(singleProduct.id)
-              }}
-            >
-              <div className="hidden content">Add</div>
-              <div className="visible content">
-                <i className="shop icon" />
-              </div>
-            </button>
-          </div>
+          <Button animated onClick={() => {this.onClick(singleProduct.id)}}>
+              <Button.Content hidden>Add</Button.Content>
+              <Button.Content visible><i className="shop icon" /></Button.Content>
+          </Button>
         </Card.Content>
         <Reviews reviews= {this.props.reviews} />
       </Card>
