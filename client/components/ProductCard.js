@@ -6,6 +6,8 @@ import { Card, Image, Button, Icon } from 'semantic-ui-react'
 import { Alert } from 'react-alert'
 import ProductCardButton from './ProductCardButton';
 
+import { addProduct } from '../store/cart'
+
 function twoDecimals(price) {
   return price.toFixed(2)
 }
@@ -52,13 +54,7 @@ class ProductCard extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     loadProduct: product => {
       dispatch(addProduct(product))
@@ -66,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
+export default connect(null, mapDispatchToProps)(ProductCard)

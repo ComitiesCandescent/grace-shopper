@@ -8,7 +8,8 @@ class Stripe extends Component {
     this.submit = this.submit.bind(this)
   }
 
-  async submit(ev) {
+  async handleSubmit(event) {
+    event.preventDefault()
     let {token} = await this.props.stripe.createToken({name: 'Name'})
     let response = await fetch('/cart/charge', {
       method: 'POST',
@@ -26,7 +27,7 @@ class Stripe extends Component {
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
         <CardElement />
-        <button type="button" onClick={this.submit}>
+        <button type="button" onClick={this.handleSubmit}>
           Send
         </button>
       </div>

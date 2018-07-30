@@ -52,7 +52,6 @@ class SingleProduct extends Component {
         </Card.Content>
       </Card>
     )
-
     //    {/* {singleProduct.reviews.map(review => (
     //         <li key={review.id}>
     //           {review.name} wrote: {review.description}

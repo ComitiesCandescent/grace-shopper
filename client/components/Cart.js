@@ -1,55 +1,54 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { fetchCartProducts } from '../store/cart'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 
-
-function twoDecimals(price) {
+const twoDecimals = price => {
   return price.toFixed(2)
 }
 
-class Cart extends Component {
-
-
-  render() {
-    return (
-      <div className="ui items">
-        <h1>Cart</h1>
-        {Object.keys(products).length ? (
-          <React.Fragment>
-            {Object.keys(products).map(key => {
-              return (
-                <div className="item" key={products[key].id}>
-                  <div className="ui small image">
-                    <img src={products[key].imageUrl} />
+const Cart = props => {
+  const products = props.products
+  return (
+    <div className="ui items">
+      {Object.keys(products).length ? (
+        <React.Fragment>
+          <h1>Your Cart</h1>
+          {Object.keys(products).map(key => {
+            return (
+              <div className="item" key={products[key].id}>
+                <div className="ui small image">
+                  <img src={products[key].imageUrl} />
+                </div>
+                <div className="content">
+                  <div className="header">{products[key].name}</div>
+                  <div className="meta">
+                    <span className="price">
+                      Price: ${twoDecimals(products[key].price)}
+                    </span>
                   </div>
-                  <div className="content">
-                    <div className="header">{products[key].name}</div>
-                    <div className="meta">
-                      <span className="price">Price: ${twoDecimals(products[key].price)}</span>
-                    </div>
-                    <div className="meta">
-                      <span className="quantity">
-                        Quantity: {products[key].quantity}
-                      </span>
-                    </div>
-
+                  <div className="meta">
+                    <span className="quantity">
+                      Quantity: {products[key].quantity}
+                    </span>
                   </div>
                 </div>
-              )
-            })}<div>
-              Cart Total: $ {currTotal.toFixed(2)}
-            </div>
-            <NavLink to="/checkout">Go to Checkout</NavLink>
-          </React.Fragment>
-        ) : (
-            <h2>No products in cart yet</h2>
-          )
-        }
-
-      </div>
-    )
-  }
+              </div>
+            )
+          })}
+          <NavLink to="/checkout">
+            <Button content="Checkout" />
+          </NavLink>
+        </React.Fragment>
+      ) : (
+          <div>
+            <h2>No products currently in cart.</h2>
+            <h3>Why don't you add some?</h3>
+          </div>
+        )}
+    </div>
+  )
 }
 
 const mapStateToProps = state => {

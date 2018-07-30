@@ -21,7 +21,8 @@ router.post('/charge', async (req, res, next) => {
       description: 'An example charge',
       source: req.body
     })
-    res.json({status})
+
+    res.status(201).json({status})
   } catch (err) {
     res.status(500).end()
   }
