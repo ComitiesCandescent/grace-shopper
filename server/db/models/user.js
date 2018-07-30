@@ -81,6 +81,10 @@ User.prototype.correctPassword = function(candidatePwd) {
 /**
  * classMethods
  */
+User.findByEmail = function(email) {
+  return User.findOne({where: {email: email}})
+}
+
 User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }
