@@ -38,7 +38,18 @@ class AuthForm extends Component {
             />
           </div>
           <div className="field">
-            <label>Billing Address</label>
+            <label>Email</label>
+            <input
+              onChange={this.handleChange}
+              required
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={this.props.currUser.email}
+            />
+          </div>
+          <div className="field">
+            <label>Street Address</label>
             <input
               onChange={this.handleChange}
               required
