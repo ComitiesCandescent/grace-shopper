@@ -1,22 +1,16 @@
 import axios from 'axios'
 
-/**
- * ACTION TYPES
- */
+// Action types
 const GET_CART_PRODUCTS = `GET_CART_PRODUCTS`
 const ADD_PRODUCT = `ADD_PRODUCT`
 const REMOVE_PRODUCT = `REMOVE_PRODUCT`
 
-/**
- * INITIAL STATE
- */
+// Initial state
 const initialState = {
   products: {}
 }
 
-/**
- * ACTION CREATORS
- */
+// Action creators
 const getCartProducts = products => ({
   type: GET_CART_PRODUCTS,
   products
@@ -27,15 +21,12 @@ const removeCartProduct = product => ({
   product
 })
 
-
 export const addProduct = product => ({
   type: ADD_PRODUCT,
   product
 })
 
-/**
- * THUNK CREATORS
- */
+// Thunk creators
 export const fetchCartProducts = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/${userId}/cart`)
@@ -58,21 +49,19 @@ export const deleteProduct = productId => async dispatch => {
   const res = await axios.delete(``)
 }
 
-/**
- * REDUCER
- */
-export default function (state = initialState, action) {
+// Reducer
+export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT:
-      const newProducts = { ...state.products }
-      const newProduct = { ...action.product }
+      const newProducts = {...state.products}
+      const newProduct = {...action.product}
       if (newProducts[newProduct.name]) {
         newProducts[newProduct.name].quantity += 1
       } else {
         newProducts[newProduct.name] = newProduct
         newProducts[newProduct.name].quantity = 1
       }
-      return { products: newProducts }
+      return {products: newProducts}
     default:
       return state
   }

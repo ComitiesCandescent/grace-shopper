@@ -1,8 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { addProduct } from '../store/cart'
-import { Card, Image, Button } from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {NavLink} from 'react-router-dom'
+import {addProduct} from '../store/cart'
+import {Card, Image, Button} from 'semantic-ui-react'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -13,7 +13,6 @@ class ProductCard extends React.Component {
     super()
     this.onClick = this.onClick.bind(this)
   }
-
 
   onClick() {
     this.props.loadProduct(this.props.product)
@@ -40,31 +39,19 @@ class ProductCard extends React.Component {
           <i className="dollar sign icon">{twoDecimals(product.price)}</i>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui vertical animated button" tabIndex="0">
-            <Button
-              type="button"
-              className="ui button active"
-              onClick={this.onClick}
-            >
-              <div className="hidden content">Add</div>
-              <div className="visible content">
-                <i className="shop icon" />
-              </div>
-            </Button>
-          </div>
+          <Button animated onClick={this.onClick}>
+            <Button.Content hidden>Add</Button.Content>
+            <Button.Content visible>
+              <i className="shop icon" />
+            </Button.Content>
+          </Button>
         </Card.Content>
       </Card>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     loadProduct: product => {
       dispatch(addProduct(product))
@@ -72,4 +59,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
+export default connect(null, mapDispatchToProps)(ProductCard)

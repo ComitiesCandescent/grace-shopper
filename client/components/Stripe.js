@@ -10,9 +10,11 @@ class Stripe extends Component {
       complete: false,
       currUser: {}
     }
-    this.submit = this.submit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  async submit(ev) {
+
+  async handleSubmit(event) {
+    event.preventDefault()
     let {token} = await this.props.stripe.createToken({name: 'Name'})
     let response = await fetch('/cart/charge', {
       method: 'POST',
