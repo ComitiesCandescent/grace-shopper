@@ -39,18 +39,12 @@ class ProductCard extends React.Component {
           <i className="dollar sign icon">{twoDecimals(product.price)}</i>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui vertical animated button" tabIndex="0">
-            <Button
-              type="button"
-              className="ui button active"
-              onClick={this.onClick}
-            >
-              <div className="hidden content">Add</div>
-              <div className="visible content">
-                <i className="shop icon" />
-              </div>
-            </Button>
-          </div>
+          <Button animated onClick={this.onClick}>
+            <Button.Content hidden>Add</Button.Content>
+            <Button.Content visible>
+              <i className="shop icon" />
+            </Button.Content>
+          </Button>
         </Card.Content>
       </Card>
     )

@@ -25,7 +25,8 @@ class Navbar extends Component {
     }
   }
 
-  handleItemClick(e, {name}) {
+  handleItemClick(event, {name}) {
+    event.preventDefault()
     this.setState({activeItem: name})
   }
 
@@ -127,64 +128,6 @@ class Navbar extends Component {
     )
   }
 }
-
-// const Navbar = props => {
-//   const userId = props.currUser.id
-//   return (
-//     <nav className="navbar navbar-default">
-//       <div className="container-fluid">
-//         <div
-//           className="collapse navbar-collapse"
-//           id="bs-example-navbar-collapse-1"
-//         >
-//           <ul className="nav navbar-nav">
-//             <li className="active">
-//               <NavLink to="/" activeClassName="active">
-//                 Home <span className="sr-only" />
-//               </NavLink>
-//             </li>
-//             <li className="active">
-//               <NavLink to="/cart" activeClassName="active">
-//                 Your Cart <span className="sr-only" />
-//               </NavLink>
-//             </li>
-//             {props.isLoggedIn ? (
-//               <div>
-//                 <li className="active">
-//                   <NavLink to={`/users/${userId}`} activeClassName="active">
-//                     Your Profile <span className="sr-only" />
-//                   </NavLink>
-//                 </li>
-//                 <li className="active">
-//                   <NavLink
-//                     to="/login"
-//                     activeClassName="active"
-//                     onClick={props.handleClick}
-//                   >
-//                     Logout <span className="sr-only" />
-//                   </NavLink>
-//                 </li>
-//               </div>
-//             ) : (
-//               <div>
-//                 <li className="active">
-//                   <NavLink to="/login" activeClassName="active">
-//                     Login <span className="sr-only" />
-//                   </NavLink>
-//                 </li>
-//                 <li className="active">
-//                   <NavLink to="/signup" activeClassName="active">
-//                     Signup <span className="sr-only" />
-//                   </NavLink>
-//                 </li>
-//               </div>
-//             )}
-//           </ul>
-//         </div>
-//       </div>
-//     </nav>
-//   )
-// }
 
 const mapState = state => {
   return {

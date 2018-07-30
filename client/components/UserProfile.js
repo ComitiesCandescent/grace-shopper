@@ -25,7 +25,10 @@ class UserProfile extends Component {
             </p>
           </React.Fragment>
         ) : (
-          <h2>No user currently logged in.</h2>
+          <div>
+            <h2>No user currently logged in.</h2>
+            <h3>Why don't you log in or sign up?</h3>
+          </div>
         )}
       </div>
     )
