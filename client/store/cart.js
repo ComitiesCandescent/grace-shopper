@@ -3,15 +3,15 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_CART_PRODUCTS = 'GET_CART_PRODUCTS'
-const ADD_PRODUCT = 'ADD_PRODUCT'
-const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+const GET_CART_PRODUCTS = `GET_CART_PRODUCTS`
+const ADD_PRODUCT = `ADD_PRODUCT`
+const REMOVE_PRODUCT = `REMOVE_PRODUCT`
 
 /**
  * INITIAL STATE
  */
 const initialState = {
-  products: []
+  products: {}
 }
 
 /**
@@ -27,7 +27,8 @@ const removeCartProduct = product => ({
   product
 })
 
-const addProduct = product => ({
+
+export const addProduct = product => ({
   type: ADD_PRODUCT,
   product
 })
@@ -44,14 +45,14 @@ export const fetchCartProducts = userId => async dispatch => {
   }
 }
 
-export const fetchProductToAdd = productId => async dispatch => {
-  try {
-    const res = await axios.get(`/api/products/${productId}`)
-    dispatch(addProduct(res.data))
-  } catch (err) {
-    console.error(err)
-  }
-}
+// export const fetchProductToAdd = productId => async dispatch => {
+//   try {
+//     const res = await axios.get(`/api/products/${productId}`)
+//     dispatch(addProduct(res.data))
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
 export const deleteProduct = productId => async dispatch => {
   const res = await axios.delete(``)
@@ -60,15 +61,18 @@ export const deleteProduct = productId => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_CART_PRODUCTS:
-      return {...state, products: action.products}
     case ADD_PRODUCT:
-      return {
-        ...state,
-        products: state.products.concat(action.product)
+      const newProducts = { ...state.products }
+      const newProduct = { ...action.product }
+      if (newProducts[newProduct.name]) {
+        newProducts[newProduct.name].quantity += 1
+      } else {
+        newProducts[newProduct.name] = newProduct
+        newProducts[newProduct.name].quantity = 1
       }
+      return { products: newProducts }
     default:
       return state
   }

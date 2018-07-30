@@ -1,6 +1,6 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
-import {Login, Signup, Home, SingleProduct, Cart} from './components'
+import { Route, Switch } from 'react-router-dom'
+import { Login, Signup, Home, SingleProduct, Cart } from './components'
 import Checkout from './components/Checkout'
 // import {connect} from 'react-redux'
 // import {me} from './store'
@@ -13,6 +13,7 @@ import Checkout from './components/Checkout'
 const Routes = () => {
   return (
     <Switch>
+      <Route exact path="/cart" component={Cart} />
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/checkout" component={Checkout} />

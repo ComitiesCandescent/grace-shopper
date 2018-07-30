@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { logout } from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, name}) => {
+const Navbar = ({ handleClick, isLoggedIn, name, cart }) => {
   // return (
   //   <nav className="navbar navbar-default">
   //     <div className="container-fluid">
@@ -43,7 +43,7 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
   //     </div>
   //   </nav>
   // )
-
+  console.log(cart)
   if (isLoggedIn === true) {
     return (
       <nav className="navbar navbar-default">
@@ -59,7 +59,7 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
                 </NavLink>
               </li>
               <li className="active">
-                <NavLink to="/:userId/cart" activeClassName="active">
+                <NavLink to="/cart" activeClassName="active">
                   Your Cart <span className="sr-only">(current)</span>
                 </NavLink>
               </li>
@@ -93,7 +93,7 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
               </NavLink>
             </li>
             <li className="active">
-              <NavLink to="/:userId/cart" activeClassName="active">
+              <NavLink to="/cart" activeClassName="active">
                 Your Cart <span className="sr-only">(current)</span>
               </NavLink>
             </li>
@@ -120,7 +120,8 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.userState.currUser.id,
-    name: state.userState.currUser.name
+    name: state.userState.currUser.name,
+    cart: state.cartState.products
   }
 }
 
