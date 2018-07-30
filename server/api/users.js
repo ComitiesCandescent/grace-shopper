@@ -49,6 +49,7 @@ router.delete(`/:userId`, (req, res, next) => {
       res.sendStatus(204)
     })
     .catch(next)
+<<<<<<< HEAD
 })
 
 // EDIT /api/users/:userId
@@ -65,3 +66,6 @@ router.put('/:userId', async (req, res, next) => {
     next(error)
   }
 })
+=======
+  })
+>>>>>>> master

@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/product'
 import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
-import {Card, Image} from 'semantic-ui-react'
+import {fetchReviewsByProduct} from '../store/review'
+import Reviews from './Reviews'
+import {Card, Image, Button} from 'semantic-ui-react'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -19,6 +21,7 @@ class SingleProduct extends Component {
     this.props.loadSingleProduct()
     console.log('FIX USER ID LATER!!!!!: ')
     this.props.loadCartProducts(1)
+    this.props.loadReviews(this.props.match.params.productId)
   }
 
   onClick(productId) {
@@ -43,21 +46,12 @@ class SingleProduct extends Component {
           </i>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui vertical animated button" tabIndex="0">
-            <button
-              type="button"
-              className="ui button active"
-              onClick={() => {
-                this.onClick(singleProduct.id)
-              }}
-            >
-              <div className="hidden content">Add</div>
-              <div className="visible content">
-                <i className="shop icon" />
-              </div>
-            </button>
-          </div>
+          <Button animated onClick={() => {this.onClick(singleProduct.id)}}>
+              <Button.Content hidden>Add</Button.Content>
+              <Button.Content visible><i className="shop icon" /></Button.Content>
+          </Button>
         </Card.Content>
+        <Reviews reviews= {this.props.reviews} />
       </Card>
     )
     //    {/* {singleProduct.reviews.map(review => (
@@ -71,7 +65,8 @@ class SingleProduct extends Component {
 const mapStateToProps = state => {
   return {
     singleProduct: state.productState.singleProduct,
-    products: state.cartState.products
+    products: state.cartState.products,
+    reviews: state.reviewState.reviewsByProduct
   }
 }
 
@@ -85,6 +80,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     loadProduct: productId => {
       dispatch(fetchProductToAdd(productId))
+    },
+    loadReviews: productId => {
+      dispatch(fetchReviewsByProduct(productId))
     }
   }
 }
