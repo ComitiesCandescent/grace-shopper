@@ -27,7 +27,6 @@ class Stripe extends Component {
 
   render() {
     if (this.state.complete) return <h1>Purchase Complete</h1>
-    console.log(this.props)
     return (
       <React.Fragment>
         <h3>Shipping Address</h3>
