@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/product'
 import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
+import {fetchReviewsByProduct} from '../store/review'
 import Reviews from './Reviews'
 import {Card, Image} from 'semantic-ui-react'
 
@@ -20,6 +21,7 @@ class SingleProduct extends Component {
     this.props.loadSingleProduct()
     console.log('FIX USER ID LATER!!!!!: ')
     this.props.loadCartProducts(1)
+    this.props.loadReviews(this.props.match.params.productId)
   }
 
   onClick(productId) {
@@ -59,7 +61,7 @@ class SingleProduct extends Component {
             </button>
           </div>
         </Card.Content>
-        <Reviews productId = {singleProduct.id}/>
+        <Reviews reviews= {this.props.reviews} />
       </Card>
     )
 
@@ -74,7 +76,8 @@ class SingleProduct extends Component {
 const mapStateToProps = state => {
   return {
     singleProduct: state.productState.singleProduct,
-    products: state.cartState.products
+    products: state.cartState.products,
+    reviews: state.reviewState.reviewsByProduct
   }
 }
 
@@ -88,6 +91,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     loadProduct: productId => {
       dispatch(fetchProductToAdd(productId))
+    },
+    loadReviews: productId => {
+      dispatch(fetchReviewsByProduct(productId))
     }
   }
 }

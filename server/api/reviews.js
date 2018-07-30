@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 // /api/reviews/product/:productId
 router.get('/product/:productId', async (req, res, next) => {
   try {
-    res.json(await Review.findOne({
+    res.json(await Review.findAll({
       where:{
         productId: req.params.productId
       }
@@ -23,6 +23,18 @@ router.get('/product/:productId', async (req, res, next) => {
     next(error)
   }
 })
+
+// router.post('/product/:productId', async (req, res, next) => {
+//   try {
+//     res.json(await Review.create({
+//       where:{
+//         productId: req.params.productId
+//       }
+//     }))
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 
 // /api/reviews/:reviewId
 router.get('/:reviewId', async (req, res, next) => {
