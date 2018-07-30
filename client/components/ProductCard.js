@@ -1,8 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { addProduct } from '../store/cart'
-import { Card, Image, Button } from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {NavLink} from 'react-router-dom'
+import {addProduct} from '../store/cart'
+import {Card, Image, Button} from 'semantic-ui-react'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -13,7 +13,6 @@ class ProductCard extends React.Component {
     super()
     this.onClick = this.onClick.bind(this)
   }
-
 
   onClick() {
     this.props.loadProduct(this.props.product)
@@ -58,13 +57,7 @@ class ProductCard extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     loadProduct: product => {
       dispatch(addProduct(product))
@@ -72,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
+export default connect(null, mapDispatchToProps)(ProductCard)

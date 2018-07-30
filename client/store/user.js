@@ -43,7 +43,7 @@ export const fetchUser = userId => {
 export const fetchUserByEmail = email => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/users/email/${email}`)
+      const res = await axios.get(`/api/users/${email}`)
       return dispatch(gotUser(res.data))
     } catch (err) {
       console.error(err)

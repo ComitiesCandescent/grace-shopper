@@ -32,72 +32,98 @@ class Navbar extends Component {
   render() {
     const {activeItem} = this.state
     const products = this.props.products
-    // const isLoggedIn = this.props.isLoggedIn
+    const isLoggedIn = this.props.isLoggedIn
     return (
-      <Menu>
-        <Menu.Item
-          name="home"
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        >
-          <NavLink to="/" activeClassName="active">
-            Home <span className="sr-only" />
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          name="cart"
-          active={activeItem === 'cart'}
-          onClick={this.handleItemClick}
-        >
-          <NavLink to="/cart" activeClassName="active">
-            Your Cart ({products ? getTotal(products) : '0'}){' '}
-            <span className="sr-only" />
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          name="profile"
-          active={activeItem === 'profile'}
-          onClick={this.handleItemClick}
-        >
-          <NavLink
-            to={`/users/${this.props.currUser.id}`}
-            activeClassName="active"
-          >
-            Your Profile <span className="sr-only" />
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          name="logout"
-          active={activeItem === 'logout'}
-          onClick={this.props.handleLogout}
-        >
-          <NavLink
-            to="/login"
-            activeClassName="active"
-            onClick={this.props.handleClick}
-          >
-            Logout <span className="sr-only" />
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          name="login"
-          active={activeItem === 'login'}
-          onClick={this.handleItemClick}
-        >
-          <NavLink to="/login" activeClassName="active">
-            Login <span className="sr-only" />
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item
-          name="signup"
-          active={activeItem === 'signup'}
-          onClick={this.handleItemClick}
-        >
-          <NavLink to="/signup" activeClassName="active">
-            Signup <span className="sr-only" />
-          </NavLink>
-        </Menu.Item>
-      </Menu>
+      <div className="ui items">
+        {isLoggedIn ? (
+          <Menu>
+            <Menu.Item
+              name="home"
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink to="/" activeClassName="active">
+                Home <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item
+              name="cart"
+              active={activeItem === 'cart'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink to="/cart" activeClassName="active">
+                Your Cart ({products ? getTotal(products) : '0'}){' '}
+                <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item
+              name="profile"
+              active={activeItem === 'profile'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink
+                to={`/users/${this.props.currUser.id}`}
+                activeClassName="active"
+              >
+                Your Profile <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item
+              name="logout"
+              active={activeItem === 'logout'}
+              onClick={this.props.handleLogout}
+            >
+              <NavLink
+                to="/login"
+                activeClassName="active"
+                onClick={this.props.handleClick}
+              >
+                Logout <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+          </Menu>
+        ) : (
+          <Menu>
+            <Menu.Item
+              name="home"
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink to="/" activeClassName="active">
+                Home <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item
+              name="cart"
+              active={activeItem === 'cart'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink to="/cart" activeClassName="active">
+                Your Cart ({products ? getTotal(products) : '0'}){' '}
+                <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item
+              name="login"
+              active={activeItem === 'login'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink to="/login" activeClassName="active">
+                Login <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item
+              name="signup"
+              active={activeItem === 'signup'}
+              onClick={this.handleItemClick}
+            >
+              <NavLink to="/signup" activeClassName="active">
+                Signup <span className="sr-only" />
+              </NavLink>
+            </Menu.Item>
+          </Menu>
+        )}
+      </div>
     )
   }
 }

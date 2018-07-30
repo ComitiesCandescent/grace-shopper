@@ -11,9 +11,9 @@ const Cart = props => {
   const products = props.products
   return (
     <div className="ui items">
-      <h1>Cart</h1>
       {Object.keys(products).length ? (
         <React.Fragment>
+          <h1>Your Cart</h1>
           {Object.keys(products).map(key => {
             return (
               <div className="item" key={products[key].id}>
@@ -39,7 +39,7 @@ const Cart = props => {
           <NavLink to="/checkout">Go to Checkout</NavLink>
         </React.Fragment>
       ) : (
-        <h2>No products in cart yet</h2>
+        <h2>No products currently in cart.</h2>
       )}
     </div>
   )

@@ -10,17 +10,23 @@ class UserProfile extends Component {
   render() {
     const user = this.props.currUser
     return (
-      <div>
-        <h3>Your Profile</h3>
-        <h4>Name</h4>
-        <p>{user.name}</p>
-        <h4>Email</h4>
-        <p>{user.email}</p>
-        <h4>Address</h4>
-        <p>{user.street}</p>
-        <p>
-          {user.city}, {user.state} {user.zipcode}
-        </p>
+      <div className="ui items">
+        {user.name ? (
+          <React.Fragment>
+            <h1>Your Profile</h1>
+            <h4>Name</h4>
+            <p>{user.name}</p>
+            <h4>Email</h4>
+            <p>{user.email}</p>
+            <h4>Address</h4>
+            <p>{user.street}</p>
+            <p>
+              {user.city}, {user.state} {user.zipcode}
+            </p>
+          </React.Fragment>
+        ) : (
+          <h2>No user currently logged in.</h2>
+        )}
       </div>
     )
   }
