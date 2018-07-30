@@ -1,8 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
-import {Card, Image, Button} from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { fetchCartProducts, fetchProductToAdd, addProduct } from '../store/cart'
+import { Card, Image, Button } from 'semantic-ui-react'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -11,14 +11,9 @@ function twoDecimals(price) {
 class ProductCard extends React.Component {
   constructor() {
     super()
-    this.componentDidMount = this.componentDidMount.bind(this)
     this.onClick = this.onClick.bind(this)
   }
 
-  componentDidMount() {
-    console.log('FIX USER ID LATER!!!!!: ')
-    this.props.loadCartProducts(1)
-  }
 
   onClick(productId) {
     this.props.loadProduct(productId)
@@ -49,9 +44,7 @@ class ProductCard extends React.Component {
             <button
               type="button"
               className="ui button active"
-              onClick={() => {
-                this.onClick(product.id)
-              }}
+              onClick={onClick}
             >
               <div className="hidden content">Add</div>
               <div className="visible content">
@@ -67,7 +60,7 @@ class ProductCard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.cartState.products
+
   }
 }
 
@@ -77,7 +70,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(fetchCartProducts(userId))
     },
     loadProduct: productId => {
-      dispatch(fetchProductToAdd(productId))
+      dispatch(addProduct(productId))
     }
   }
 }
