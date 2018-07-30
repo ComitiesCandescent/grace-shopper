@@ -21,7 +21,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(' this.props: ', this.props)
+
     this.props.loadUser(this.props.currUser.id)
   }
 

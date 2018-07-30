@@ -43,7 +43,7 @@ const Navbar = ({ handleClick, isLoggedIn, name, cart }) => {
   //     </div>
   //   </nav>
   // )
-  console.log(cart)
+
   if (isLoggedIn === true) {
     return (
       <nav className="navbar navbar-default">
