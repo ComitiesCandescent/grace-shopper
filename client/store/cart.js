@@ -27,7 +27,6 @@ const removeCartProduct = product => ({
   product
 })
 
-
 const addProduct = product => ({
   type: ADD_PRODUCT,
   product
