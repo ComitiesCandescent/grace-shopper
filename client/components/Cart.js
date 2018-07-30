@@ -9,9 +9,9 @@ function twoDecimals(price) {
 }
 
 class Cart extends Component {
+
+
   render() {
-    const products = this.props.products
-    console.log(Object.keys(products).length)
     return (
       <div className="ui items">
         <h1>Cart</h1>
@@ -33,13 +33,14 @@ class Cart extends Component {
                         Quantity: {products[key].quantity}
                       </span>
                     </div>
+
                   </div>
                 </div>
               )
-            })}
-            <NavLink to="/checkout">
-              Go to Checkout
-        </NavLink>
+            })}<div>
+              Cart Total: $ {currTotal.toFixed(2)}
+            </div>
+            <NavLink to="/checkout">Go to Checkout</NavLink>
           </React.Fragment>
         ) : (
             <h2>No products in cart yet</h2>

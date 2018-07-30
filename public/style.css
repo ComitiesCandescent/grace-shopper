@@ -5386,6 +5386,12 @@ button.list-group-item-info.active:focus {
   background-color: #31708f;
   border-color: #31708f;
 }
+.ui.vertical.animated.button {
+  background-color: lightgray;
+  padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
 .list-group-item-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;

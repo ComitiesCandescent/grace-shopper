@@ -1,28 +1,24 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/product'
-import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
-import {Card, Image} from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchSingleProduct } from '../store/product'
+import { fetchCartProducts, fetchProductToAdd } from '../store/cart'
+import { Card, Image, Icon } from 'semantic-ui-react'
 
 function twoDecimals(price) {
   return price.toFixed(2)
 }
 
 class SingleProduct extends Component {
-  constructor() {
-    super()
-    this.componentDidMount = this.componentDidMount.bind(this)
-    this.onClick = this.onClick.bind(this)
-  }
+
 
   componentDidMount() {
     this.props.loadSingleProduct()
-    console.log('FIX USER ID LATER!!!!!: ')
-    this.props.loadCartProducts(1)
+    console.log(`FIX USER ID LATER!!!!!: `)
+
   }
 
-  onClick(productId) {
-    this.props.loadProduct(productId)
+  onClick(product) {
+    this.props.loadProduct(product)
   }
 
   render() {
@@ -44,18 +40,14 @@ class SingleProduct extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className="ui vertical animated button" tabIndex="0">
-            <button
-              type="button"
+            <Button type="button"
               className="ui button active"
-              onClick={() => {
-                this.onClick(singleProduct.id)
-              }}
-            >
-              <div className="hidden content">Add</div>
-              <div className="visible content">
-                <i className="shop icon" />
-              </div>
-            </button>
+              onClick={this.onClick} animated='vertical'>
+              <Button.Content hidden>Add</Button.Content>
+              <Button.Content visible>
+                <Icon name='shop' />
+              </Button.Content>
+            </Button>
           </div>
         </Card.Content>
       </Card>
@@ -81,11 +73,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadSingleProduct: () => {
       dispatch(fetchSingleProduct(ownProps.match.params.productId))
     },
-    loadCartProducts: userId => {
-      dispatch(fetchCartProducts(userId))
-    },
-    loadProduct: productId => {
-      dispatch(fetchProductToAdd(productId))
+
+    loadProduct: product => {
+      dispatch(addProduct(product))
     }
   }
 }
