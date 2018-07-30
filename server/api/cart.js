@@ -3,7 +3,7 @@ const router = express.Router()
 const Cart = require('../db/models/cart')
 const stripe = require('stripe')('sk_test_TwTTlid3GeOG6YPydOjARw4I')
 
-// /api/:userId/cart
+// GET /api/cart
 router.get('/', async (req, res, next) => {
   try {
     res.json(await Cart.findOne({where: {userId: req.params.userId}}))
@@ -11,9 +11,11 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
-router.post('/charge', async (req, res) => {
+
+// POST /api/cart/charge
+router.post('/charge', async (req, res, next) => {
   try {
-    let {status} = await stripe.charges.create({
+    const {status} = await stripe.charges.create({
       amount: 2000,
       currency: 'usd',
       description: 'An example charge',
@@ -25,6 +27,14 @@ router.post('/charge', async (req, res) => {
     res.status(500).end()
   }
 })
-router.delete('/')
+
+// DELETE /api/cart/:userId
+router.delete('/:userId', (req, res, next) => {
+  Cart.destroy({where: {userId: req.params.userId}})
+    .then(() => {
+      res.sendStatus(204)
+    })
+    .catch(next)
+})
 
 module.exports = router
