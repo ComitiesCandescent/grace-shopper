@@ -32,4 +32,36 @@ describe(`User model`, () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
-}) // end describe('User model')
+  describe('Validations', () => {
+    it('requires name', async () => {
+      const newUser = User.build()
+
+      try {
+        await newUser.validate()
+        throw Error(
+          'validation was successful but should have failed without `name`'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('name cannot be null')
+      }
+    })
+
+    it('requires name to not be an empty string', async () => {
+      const newUser = User.build({
+        name: ''
+      })
+
+      try {
+        await newUser.validate()
+        throw Error(
+          'validation was successful but should have failed if name is an empty string'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('Validation error')
+        /* handle error */
+      }
+    })
+  })
+})
+
+// }) // end describe('User model')
