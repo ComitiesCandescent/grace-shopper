@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {me, logout} from './user'
+import {me, logout, login} from './user'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -47,13 +47,14 @@ describe('thunk creators', () => {
       expect(history.location.pathname).to.be.equal('/login')
     })
   })
-  xdescribe('newUser', () => {
-    it('newUser: eventually dispatches the NEW_USER action', async () => {
-      mockAxios.onPost('/auth/logout').replyOnce(204)
-      await store.dispatch(logout())
-      const actions = store.getActions()
-      expect(actions[0].type).to.be.equal('REMOVE_USER')
-      expect(history.location.pathname).to.be.equal('/login')
-    })
-  })
+  //   describe('login', () => {
+  //     it('login: eventually dispatches the GET_USER action', async () => {
+  //       mockAxios.onPost('/auth/login').replyOnce(204)
+  //       await store.dispatch(login())
+  //       const actions = store.getActions()
+  //       console.log(actions)
+  //       expect(actions[0].type).to.be.equal('REMOVE_USER')
+  //       expect(history.location.pathname).to.be.equal('/login')
+  //     })
+  //   })
 })

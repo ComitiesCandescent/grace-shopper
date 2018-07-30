@@ -18,7 +18,7 @@ router.post('/charge', async (req, res, next) => {
     const {status} = await stripe.charges.create({
       amount: 2000,
       currency: 'usd',
-      description: 'An example charge',
+      description: 'A purchase of grass',
       source: req.body
     })
 
