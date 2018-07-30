@@ -82,7 +82,8 @@ const Navbar = ({handleClick, isLoggedIn, name}) => {
                 </NavLink>
               </li>
             </ul>
-            <h3>Hi {name}</h3>
+            <h3>Welcome back, {name}!</h3>
+            <br />
           </div>
         </div>
       </nav>
