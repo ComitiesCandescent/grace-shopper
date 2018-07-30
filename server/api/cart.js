@@ -20,7 +20,7 @@ router.post('/charge', async (req, res) => {
       source: req.body
     })
 
-    res.json({status})
+    res.status(201).json({status})
   } catch (err) {
     res.status(500).end()
   }
