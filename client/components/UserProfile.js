@@ -1,26 +1,26 @@
 import React, {Component} from 'react'
-import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {me} from '../store/users'
+import {fetchUser} from '../store/user'
 
 class UserProfile extends Component {
   componentDidMount() {
-    this.props.loadSingleUser()
+    this.props.loadUser()
   }
 
   render() {
-    const user = this.props.user
+    const user = this.props.currUser
     return (
       <div>
-        <img src="img.jpg" />
-        <h1>{user.name}</h1>
-        <a>E-Mail: {user.email}</a>
-        <p>- Address -</p>
-        <a>Street: {user.street}</a>
-        <a>City: {user.city}</a>
-        <a>State: {user.state}</a>
-        <a>ZipCode: {user.zipcode}</a>
-        <NavLink to={`/user/${user.id}`}>Update</NavLink>
+        <h3>Your Profile</h3>
+        <h4>Name</h4>
+        <p>{user.name}</p>
+        <h4>Email</h4>
+        <p>{user.email}</p>
+        <h4>Address</h4>
+        <p>{user.street}</p>
+        <p>
+          {user.city}, {user.state} {user.zipcode}
+        </p>
       </div>
     )
   }
@@ -28,14 +28,14 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => {
   return {
-    singleUser: state.userState.productState
+    currUser: state.userState.currUser
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadUser: () => {
-      dispatch(me())
+      dispatch(fetchUser(ownProps.match.params.userId))
     }
   }
 }

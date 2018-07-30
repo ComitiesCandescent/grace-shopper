@@ -22,6 +22,16 @@ router.post(`/`, async (req, res, next) => {
   }
 })
 
+// GET /api/users/:email
+router.get(`/:email`, async (req, res, next) => {
+  try {
+    const singleUser = await User.findByEmail(req.params.email)
+    res.json(singleUser)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // GET /api/users/:userId
 router.get(`/:userId`, async (req, res, next) => {
   try {

@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {postUser, writeNewUser, fetchUser} from '../store'
+import {postUser} from '../store'
 
-/**
- * COMPONENT
- */
 class AuthForm extends Component {
   constructor() {
     super()
@@ -18,17 +15,10 @@ class AuthForm extends Component {
       password: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
-  }
-
-  handleSubmit(event, userData) {
-    event.preventDefault()
-    this.props.loadNewUser(userData)
-    // this.props.history.push(`/users/${this.state.currUser.id}`)
   }
 
   render() {
@@ -36,7 +26,7 @@ class AuthForm extends Component {
       <React.Fragment>
         <form
           className="ui form"
-          onSubmit={event => this.handleSubmit(event, this.state)}
+          onSubmit={event => this.props.handleSubmit(event, this.state)}
         >
           <h4 className="ui dividing header">Signup</h4>
           <div className="field">
@@ -176,24 +166,18 @@ class AuthForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    newUser: state.userState.newUser
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    writeNewUser: info => {
-      dispatch(writeNewUser(info))
-    },
-    loadNewUser: user => {
-      dispatch(postUser(user))
-    },
-    loadUser: userId => {
-      dispatch(fetchUser(userId))
+    handleSubmit: async (event, userData) => {
+      try {
+        event.preventDefault()
+        const userAction = await dispatch(postUser(userData))
+        ownProps.history.push(`/users/${userAction.user.id}`)
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthForm)
+export default connect(null, mapDispatchToProps)(AuthForm)

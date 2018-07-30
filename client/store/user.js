@@ -29,23 +29,36 @@ const gotRemoveUser = () => ({type: REMOVE_USER})
 export const writeNewUser = info => ({type: WRITE_NEW_USER, info})
 
 // Thunk creators
-export const fetchUser = userId => async dispatch => {
-  try {
-    const res = await axios.get(`/api/users/${userId}`)
-    dispatch(gotUser(res.data))
-    history.push(`/`)
-  } catch (err) {
-    console.error(err)
+export const fetchUser = userId => {
+  return async dispatch => {
+    try {
+      const res = await axios.get(`/api/users/${userId}`)
+      return dispatch(gotUser(res.data))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
-export const postUser = user => async dispatch => {
-  try {
-    const res = await axios.post(`/api/users`, user)
-    dispatch(gotNewUser(res.data))
-    history.push(`/`)
-  } catch (err) {
-    console.error(err)
+export const fetchUserByEmail = email => {
+  return async dispatch => {
+    try {
+      const res = await axios.get(`/api/users/${email}`)
+      return dispatch(gotUser(res.data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+export const postUser = user => {
+  return async dispatch => {
+    try {
+      const res = await axios.post(`/api/users`, user)
+      return dispatch(gotNewUser(res.data))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 

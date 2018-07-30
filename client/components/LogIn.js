@@ -1,34 +1,30 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchUser, writeNewUser} from '../store'
-import PropTypes from 'prop-types'
-import {auth} from '../store'
-
-/**
- * COMPONENT
- */
+import {fetchUserByEmail} from '../store'
+// import PropTypes from 'prop-types'
+// import {auth} from '../store'
 
 class Login extends Component {
   constructor() {
     super()
+    this.state = {
+      email: '',
+      password: ''
+    }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
-    this.props.writeNewUser({[event.target.name]: event.target.value})
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
-
-    this.props.loadUser(this.props.currUser.id)
+    this.setState({[event.target.name]: event.target.value})
   }
 
   render() {
     return (
       <React.Fragment>
-        <form className="ui form">
+        <form
+          className="ui form"
+          onSubmit={event => this.props.handleSubmit(event, this.state.email)}
+        >
           <h4 className="ui dividing header">Login</h4>
           <div className="field">
             <label>Email</label>
@@ -38,7 +34,7 @@ class Login extends Component {
               type="text"
               name="email"
               placeholder="Email"
-              value={this.props.currUser.name}
+              value={this.state.email}
             />
           </div>
           <div className="field">
@@ -49,15 +45,10 @@ class Login extends Component {
               type="text"
               name="password"
               placeholder="Password"
-              value={this.props.currUser.name}
+              value={this.state.password}
             />
           </div>
-          <button
-            className="ui button"
-            type="submit"
-            tabIndex="0"
-            onClick={this.handleSubmit}
-          >
+          <button className="ui button" type="submit" tabIndex="0">
             Login
           </button>
         </form>
@@ -66,24 +57,21 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    currUser: state.userState.currUser
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    writeNewUser: info => {
-      dispatch(writeNewUser(info))
-    },
-    loadUser: userId => {
-      dispatch(fetchUser(userId))
+    handleSubmit: async (event, email) => {
+      try {
+        event.preventDefault()
+        const userAction = await dispatch(fetchUserByEmail(email))
+        ownProps.history.push(`/users/${userAction.user.id}`)
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(Login)
 
 // const Login = props => {
 //   const {name, displayName, handleSubmit, error} = props
