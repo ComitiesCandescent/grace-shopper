@@ -63,14 +63,16 @@ export const deleteProduct = productId => async dispatch => {
  */
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_CART_PRODUCTS:
-      console.log({ ...action.products })
-      return { ...state, products: action.products }
     case ADD_PRODUCT:
-      return {
-        ...state,
-        products: state.products.concat(action.product)
+      const newProducts = { ...state.products }
+      const newProduct = { ...action.product }
+      if (newProducts[newProduct.name]) {
+        newProducts[newProduct.name].quantity += 1
+      } else {
+        newProducts[newProduct.name] = newProduct
+        newProducts[newProduct.name].quantity = 1
       }
+      return { products: newProducts }
     default:
       return state
   }
