@@ -50,7 +50,7 @@ class ProductCard extends React.Component {
               <div className="visible content">
                 <i className="shop icon" />
               </div>
-            </button>
+            </Button>
           </div>
         </Card.Content>
       </Card>

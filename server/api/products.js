@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Product = require('../db/models/product')
 
-// /api/products
+// GET /api/products
 router.get('/', async (req, res, next) => {
   try {
     res.json(await Product.findAll())
@@ -11,14 +11,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// /api/products/:productId
+// GET /api/products/:productId
 router.get('/:productId', async (req, res, next) => {
   try {
-    res.json(await Product.findOne({
-      where:{
-        id: req.params.productId
-      }
-    }))
+    res.json(
+      await Product.findOne({
+        where: {
+          id: req.params.productId
+        }
+      })
+    )
   } catch (error) {
     next(error)
   }
