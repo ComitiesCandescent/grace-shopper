@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/product'
 import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
 import {Card, Icon, Image, Button} from 'semantic-ui-react'
+import Reviews from './Reviews'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -58,6 +59,7 @@ class SingleProduct extends Component {
             </button>
           </div>
         </Card.Content>
+        <Reviews productId = {singleProduct.id}/>
       </Card>
     )
 

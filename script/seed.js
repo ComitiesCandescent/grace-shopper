@@ -99,12 +99,14 @@ const reviews = [
   {
     title: `G is for Grass`,
     body: `H is for happyness. - Will Smith`,
+    stars: 4,
     userId: 1,
     productId: 2
   },
   {
     title: `My house is on fire ...`,
     body: `I should not have boughten "Dead Grass on fire"...`,
+    stars: 1,
     userId: 2,
     productId: 3
   }
