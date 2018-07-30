@@ -2,8 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCartProducts} from '../store/cart'
 import {NavLink} from 'react-router-dom'
+import {Button} from 'semantic-ui-react'
 
-function twoDecimals(price) {
+const twoDecimals = price => {
   return price.toFixed(2)
 }
 
@@ -11,9 +12,9 @@ const Cart = props => {
   const products = props.products
   return (
     <div className="ui items">
-      <h1>Cart</h1>
       {Object.keys(products).length ? (
         <React.Fragment>
+          <h1>Your Cart</h1>
           {Object.keys(products).map(key => {
             return (
               <div className="item" key={products[key].id}>
@@ -36,10 +37,15 @@ const Cart = props => {
               </div>
             )
           })}
-          <NavLink to="/checkout">Go to Checkout</NavLink>
+          <NavLink to="/checkout">
+            <Button content="Checkout" />
+          </NavLink>
         </React.Fragment>
       ) : (
-        <h2>No products in cart yet</h2>
+        <div>
+          <h2>No products currently in cart.</h2>
+          <h3>Why don't you add some?</h3>
+        </div>
       )}
     </div>
   )

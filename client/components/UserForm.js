@@ -5,19 +5,9 @@ const UserForm = () => {
     <React.Fragment>
       <form>
         <label htmlFor="name">Name </label>
-        <input
-          name="name"
-          type="text"
-          //value
-          required
-        />
+        <input name="name" type="text" required />
         <label htmlFor="address">Street </label>
-        <input
-          name="address"
-          type="text"
-          // value
-          required
-        />
+        <input name="address" type="text" required />
         <label htmlFor="city">City </label>
         <input name="city" type="text" required />
         <label htmlFor="state">State </label>
