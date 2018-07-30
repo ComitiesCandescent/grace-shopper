@@ -7,7 +7,6 @@ const Checkout = () => {
   return (
     <React.Fragment>
       <UserForm />
-
       <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
         <div className="example">
           <h1>React Stripe Elements Example</h1>
