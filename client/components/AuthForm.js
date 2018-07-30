@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {newUser, writeNewUser} from '../store'
+import {postUser, writeNewUser, fetchUser} from '../store'
 
 /**
  * COMPONENT
@@ -8,24 +8,37 @@ import {newUser, writeNewUser} from '../store'
 class AuthForm extends Component {
   constructor() {
     super()
+    this.state = {
+      name: '',
+      email: '',
+      street: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      password: ''
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
-    this.props.writeNewUser({[event.target.name]: event.target.value})
+    this.setState({[event.target.name]: event.target.value})
   }
 
-  handleSubmit(event) {
+  handleSubmit(event, userData) {
     event.preventDefault()
-    this.props.newUserFunc(this.props.newUser)
+    this.props.loadNewUser(userData)
+    // this.props.history.push(`/users/${this.state.currUser.id}`)
   }
 
   render() {
     return (
       <React.Fragment>
-        <form className="ui form">
-          <h4 className="ui dividing header">Signup info:</h4>
+        <form
+          className="ui form"
+          onSubmit={event => this.handleSubmit(event, this.state)}
+        >
+          <h4 className="ui dividing header">Signup</h4>
           <div className="field">
             <label>Name</label>
             <input
@@ -34,7 +47,7 @@ class AuthForm extends Component {
               type="text"
               name="name"
               placeholder="Name"
-              value={this.props.currUser.name}
+              value={this.state.name}
             />
           </div>
           <div className="field">
@@ -45,7 +58,7 @@ class AuthForm extends Component {
               type="text"
               name="email"
               placeholder="Email"
-              value={this.props.currUser.email}
+              value={this.state.email}
             />
           </div>
           <div className="field">
@@ -56,7 +69,7 @@ class AuthForm extends Component {
               type="text"
               name="street"
               placeholder="Street Address"
-              value={this.props.currUser.street}
+              value={this.state.street}
             />
           </div>
           <div className="field">
@@ -67,7 +80,7 @@ class AuthForm extends Component {
               type="text"
               name="city"
               placeholder="City"
-              value={this.props.currUser.city}
+              value={this.state.city}
             />
           </div>
           <div className="field">
@@ -140,7 +153,7 @@ class AuthForm extends Component {
               type="number"
               name="zipcode"
               placeholder="Zip Code"
-              value={this.props.currUser.zipcode}
+              value={this.state.zipcode}
             />
           </div>
           <div className="field">
@@ -151,15 +164,10 @@ class AuthForm extends Component {
               type="password"
               name="password"
               placeholder="Password"
-              value={this.props.currUser.password}
+              value={this.state.password}
             />
           </div>
-          <button
-            className="ui button"
-            type="submit"
-            tabIndex="0"
-            onClick={this.handleSubmit}
-          >
+          <button className="ui button" type="submit" tabIndex="0">
             Signup
           </button>
         </form>
@@ -168,17 +176,24 @@ class AuthForm extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    currUser: state.userState.currUser,
+const mapStateToProps = state => {
+  return {
     newUser: state.userState.newUser
-  }),
-  dispatch => ({
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
     writeNewUser: info => {
       dispatch(writeNewUser(info))
     },
-    newUserFunc: user => {
-      dispatch(newUser(user))
+    loadNewUser: user => {
+      dispatch(postUser(user))
+    },
+    loadUser: userId => {
+      dispatch(fetchUser(userId))
     }
-  })
-)(AuthForm)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthForm)

@@ -12,6 +12,16 @@ router.get(`/`, async (req, res, next) => {
   }
 })
 
+// POST /api/users
+router.post(`/`, async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body)
+    res.json(newUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // GET /api/users/:userId
 router.get(`/:userId`, async (req, res, next) => {
   try {
@@ -29,14 +39,4 @@ router.delete(`/:userId`, (req, res, next) => {
       res.sendStatus(204)
     })
     .catch(next)
-})
-
-// POST /api/users
-router.post(`/`, async (req, res, next) => {
-  try {
-    const newUser = await User.create(req.body)
-    res.json(newUser)
-  } catch (error) {
-    next(error)
-  }
 })
