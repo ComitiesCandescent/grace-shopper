@@ -60,6 +60,17 @@ export const postUser = user => {
   }
 }
 
+export const deleteUser = userId => {
+  return async dispatch => {
+    try {
+      const res = await axios.delete(`/api/users/${userId}`)
+      return dispatch(gotRemoveUser(res.data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 // Reducer
 export default function(state = initialState, action) {
   switch (action.type) {
