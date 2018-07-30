@@ -10,10 +10,8 @@
 // enzyme.configure({adapter})
 
 // describe(`ProductList`, () => {
-//   let ProductList
-
 //   beforeEach(() => {
-//     ProductList = shallow(<ProductList />)
+//     ProductList = shallow(<ProductList props={products: 'hi'} />)
 //   })
 
 //   it(`renders title in an h2`, () => {

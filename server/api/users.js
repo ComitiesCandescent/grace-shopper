@@ -16,19 +16,9 @@ router.get(`/`, async (req, res, next) => {
 router.post(`/`, async (req, res, next) => {
   try {
     const newUser = await User.create(req.body)
-    res.json(newUser)
+    res.status(201).json(newUser)
   } catch (error) {
     next(error)
-  }
-})
-
-// GET /api/users/email/:email
-router.get(`/email/:email`, async (req, res, next) => {
-  try {
-    const singleUser = await User.findByEmail(req.params.email)
-    res.json(singleUser)
-  } catch (err) {
-    next(err)
   }
 })
 
@@ -36,6 +26,16 @@ router.get(`/email/:email`, async (req, res, next) => {
 router.get(`/:userId`, async (req, res, next) => {
   try {
     const singleUser = await User.findById(Number(req.params.userId))
+    res.json(singleUser)
+  } catch (err) {
+    next(err)
+  }
+})
+// GET /api/users/:email
+router.get(`/:email`, async (req, res, next) => {
+  try {
+    const singleUser = await User.findByEmail(req.params.email)
+    console.log('singleUser in api/users: ', singleUser)
     res.json(singleUser)
   } catch (err) {
     next(err)
