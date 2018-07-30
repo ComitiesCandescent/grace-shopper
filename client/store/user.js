@@ -33,6 +33,7 @@ const newUserAct = user => ({type: NEW_USER, user})
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 export const writeNewUser = info => ({type: WRITE_NEW_USER, info})
+
 /**
  * THUNK CREATORS
  */
@@ -45,10 +46,21 @@ export const newUser = user => async dispatch => {
     console.error(err)
   }
 }
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get(`/auth/me`)
     dispatch(getUser(res.data || initialState))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const login = () => async dispatch => {
+  try {
+    const res = await axios.get(`/auth/login`)
+    dispatch(getUser(res.data))
+    history.push(`/`)
   } catch (err) {
     console.error(err)
   }
@@ -61,7 +73,6 @@ export const auth = (email, password, method) => async dispatch => {
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
-
   try {
     dispatch(getUser(res.data))
     history.push(`/`)

@@ -1,83 +1,55 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchCartProducts} from '../store/cart'
-import {Card, Image} from 'semantic-ui-react'
-import {NavLink} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchCartProducts } from '../store/cart'
+import { NavLink } from 'react-router-dom';
+
 
 function twoDecimals(price) {
   return price.toFixed(2)
 }
 
 class Cart extends Component {
-  constructor() {
-    super()
-    this.componentDidMount = this.componentDidMount.bind(this)
-  }
-
-  componentDidMount() {
-    this.props.loadCartProducts()
-  }
-
-  findQuantity(productName) {
-    const productsArr = this.props.products
-    let quantity = 0
-    for (let i = 0; i < productsArr.length; i++) {
-      if (productsArr[i].name === productName) {
-        quantity++
-      }
-    }
-    return quantity
-  }
-
   render() {
     const products = this.props.products
-    const singleProducts = getSingle(products)
-    console.log('singleProducts: ', singleProducts);
-
+    console.log(Object.keys(products).length)
     return (
       <div className="ui items">
         <h1>Cart</h1>
-        {products.length ? (
-          products.map(product => {
-            return (
-              <div className="item" key={product.id}>
-                <div className="ui small image">
-                  <img src={product.imageUrl} />
-                </div>
-                <div className="content">
-                  <div className="header">{product.name}</div>
-                  <div className="meta">
-                    <span className="price">${twoDecimals(product.price)}</span>
+        {Object.keys(products).length ? (
+          <React.Fragment>
+            {Object.keys(products).map(key => {
+              return (
+                <div className="item" key={products[key].id}>
+                  <div className="ui small image">
+                    <img src={products[key].imageUrl} />
                   </div>
-                  <div className="meta">
-                    <span className="quantity">
-                      {this.findQuantity(product.name)}
-                    </span>
+                  <div className="content">
+                    <div className="header">{products[key].name}</div>
+                    <div className="meta">
+                      <span className="price">Price: ${twoDecimals(products[key].price)}</span>
+                    </div>
+                    <div className="meta">
+                      <span className="quantity">
+                        Quantity: {products[key].quantity}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })
+              )
+            })}
+            <NavLink to="/checkout">
+              Go to Checkout
+        </NavLink>
+          </React.Fragment>
         ) : (
-          <h2>No products in cart yet</h2>
-        )}
+            <h2>No products in cart yet</h2>
+          )
+        }
+
       </div>
     )
   }
 }
-
-const getSingle = (products) => {
-
-}
-  // let singleProduct = [];
-  // for (let i = 0; i < products.length; i++){
-  //   if (!singleProduct.includes(products[i])){
-  //     singleProduct.push(products[i])
-  //   }
-  // }
-  // return singleProduct
-  let productList = [];
-
 
 const mapStateToProps = state => {
   return {
