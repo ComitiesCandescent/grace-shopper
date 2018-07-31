@@ -1,19 +1,19 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchUserByEmail} from '../store'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchUserByEmail } from '../store'
 
 class Login extends Component {
   constructor() {
     super()
     this.state = {
-      email: '',
-      password: ''
+      email: ``,
+      password: ``
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
