@@ -1,8 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {fetchCartProducts} from '../store/cart'
-import {NavLink} from 'react-router-dom'
-import {Button} from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { fetchCartProducts } from '../store/cart'
+import { NavLink } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 
 const twoDecimals = price => {
   return price.toFixed(2)
@@ -42,11 +42,11 @@ const Cart = props => {
           </NavLink>
         </React.Fragment>
       ) : (
-        <div>
-          <h2>No products currently in cart.</h2>
-          <h3>Why don't you add some?</h3>
-        </div>
-      )}
+          <div>
+            <h2>No products currently in cart.</h2>
+            <h3>Why don't you add some?</h3>
+          </div>
+        )}
     </div>
   )
 }

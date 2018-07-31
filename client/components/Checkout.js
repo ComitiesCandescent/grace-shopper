@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import UserForm from './UserForm'
-import {Elements, StripeProvider} from 'react-stripe-elements'
+import { Elements, StripeProvider } from 'react-stripe-elements'
 import Stripe from './Stripe'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 const Checkout = props => {
   console.log(props)
@@ -28,9 +28,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    loadCartProducts: () => {
-      dispatch(fetchCartProducts(ownProps.match.params.userId))
-    }
+
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
