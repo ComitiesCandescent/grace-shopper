@@ -16,12 +16,16 @@ router.get(`/:userId`, async (req, res, next) => {
 router.put(`/:userId`, (req, res, next) => {
   try {
 
-    Cart.findOrCreate({ where: { userId: Number(req.params.userId) }, defaults: { cartProducts: req.body.products, userId: Number(req.params.userId) }, include: [User] })
-      .spread((id, created) => {
+    Cart.findOrCreate({
+      where: { userId: Number(req.params.userId) },
+      defaults: { cartProducts: req.body.products, userId: Number(req.params.userId) },
+      include: [User]
+    })
+      .spread((result, created) => {
         if (!created) {
           Cart.update(
             { cartProducts: req.body.products },
-            { where: { id: id } }
+            { where: { id: result.id } }
           )
         }
       })
