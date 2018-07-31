@@ -22,7 +22,8 @@ class Stripe extends Component {
         state: '',
         zipcode: 0
       },
-      promo: ''
+      promo: '',
+      total: 0
     }
     this.handleChangeShip = this.handleChangeShip.bind(this)
     this.handleChangeBill = this.handleChangeBill.bind(this)
@@ -44,6 +45,9 @@ class Stripe extends Component {
         }
       })
     }
+    this.setState({
+      total: this.props.totalCost
+    })
   }
   handleChangeShip(event) {
     this.setState({
@@ -81,12 +85,28 @@ class Stripe extends Component {
       shippingAdd: this.state.shippingInfo,
       billingAdd: this.state.billingInfo,
       strype: {id: token.id},
-      totalPrice: this.props.totalCost,
+      totalPrice: this.state.total,
       userId: this.props.user.id
     }
-    const newOrder = await Axios.post('api/cart/order', order)
+    const newOrder = await Axios.post('/api/cart/order', order)
     this.props.emptyCart()
     if (response.ok) this.setState({complete: true})
+  }
+  async handlePromoSubmit(event) {
+    event.preventDefault()
+    const promo = this.state.promo
+    const promoResult = await Axios.put('/api/promo', {
+      promo: promo,
+      total: this.state.total
+    })
+    if (typeof promoResult.data === 'string') {
+      window.alert(promoResult.data)
+    } else {
+      this.setState({
+        total: this.state.total - promoResult.data
+      })
+      window.alert(`You got ${promoResult.data} off your purchase`)
+    }
   }
 
   render() {
@@ -104,9 +124,10 @@ class Stripe extends Component {
           state={this.state.billingInfo}
         />
         <form onSubmit={this.handlePromoSubmit}>
-          <input type="text" onChange={this.handleChangePromo} required />
+          <input type="text" onChange={this.handleChangePromo} />
           <input type="submit" />
         </form>
+        <h6>Total: {this.state.total} </h6>
         <div className="checkout">
           <p>Would you like to complete the purchase?</p>
           <CardElement />

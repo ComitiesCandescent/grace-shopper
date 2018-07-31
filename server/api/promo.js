@@ -3,7 +3,8 @@ const {Promo} = require(`../db/models`)
 module.exports = router
 router.put('/', async (req, res, next) => {
   try {
-    const usePromo = await Promo.useCoupon(req.body)
+    console.log(req.body)
+    const usePromo = await Promo.useCoupon(req.body.promo, req.body.total)
     res.json(usePromo)
   } catch (error) {
     next(error)

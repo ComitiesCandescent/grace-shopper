@@ -13,7 +13,7 @@ const Promo = db.define(`promo`, {
     defaultValue: false
   }
 })
-Promo.useCoupon = async function(name) {
+Promo.useCoupon = async function(name, total) {
   const onePromo = await Promo.findOne({
     where: {
       name: name
@@ -21,6 +21,10 @@ Promo.useCoupon = async function(name) {
   })
   if (!onePromo || onePromo.used === true) {
     return 'Promo cannot be found or has been used already'
+  } else if (onePromo.amount > total) {
+    return `You must do a purchase of atleast ${
+      onePromo.amount
+    } to use this deal!`
   }
   onePromo.used = true
   await onePromo.save()
