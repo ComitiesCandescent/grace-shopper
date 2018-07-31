@@ -11,8 +11,8 @@ const initialState = {
 }
 
 // Action creators
-const getCartProducts = () => ({
-  type: GET_CART_PRODUCTS
+const getCartProducts = products => ({
+  type: GET_CART_PRODUCTS, products
 })
 
 const removeCartProduct = product => ({
@@ -29,7 +29,7 @@ export const addProduct = ({ userId, product }) => ({
 // Thunk creators
 export const fetchCartProducts = userId => async dispatch => {
   try {
-    const res = await axios.get(`/api/${userId}/cart`)
+    const res = await axios.get(`/api/cart/${userId}`)
     dispatch(getCartProducts(res.data))
   } catch (err) {
     console.error(err)
@@ -53,6 +53,8 @@ export const deleteProduct = productId => async dispatch => {
 // Reducer
 export default function (state = initialState, action) {
   switch (action.type) {
+    case GET_CART_PRODUCTS:
+      return { products: action.products }
     case ADD_PRODUCT:
       const newProducts = { ...state.products }
       const newProduct = { ...action.product }
