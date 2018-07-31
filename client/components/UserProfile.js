@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchUser} from '../store/user'
+import {fetchUser, deleteUser} from '../store'
+import {NavLink} from 'react-router-dom'
+import {Button} from 'semantic-ui-react'
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -23,6 +25,12 @@ class UserProfile extends Component {
             <p>
               {user.city}, {user.state} {user.zipcode}
             </p>
+            <NavLink to={`/users/${user.id}/edit`}>
+              <Button content="Edit" />
+            </NavLink>
+            <NavLink to="/" onClick={() => this.props.deleteThisUser()}>
+              <Button content="Delete" />
+            </NavLink>
           </React.Fragment>
         ) : (
           <div>
@@ -45,6 +53,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadUser: () => {
       dispatch(fetchUser(ownProps.match.params.userId))
+    },
+    deleteThisUser: () => {
+      dispatch(deleteUser(ownProps.match.params.userId))
     }
   }
 }

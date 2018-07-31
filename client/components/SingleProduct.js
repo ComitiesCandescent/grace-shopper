@@ -1,32 +1,26 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/product'
-import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchSingleProduct } from '../store/product'
+import { addProduct } from '../store/cart'
 import {fetchReviewsByProduct} from '../store/review'
 import Reviews from './Reviews'
-import {Card, Image, Button} from 'semantic-ui-react'
+import { Card, Image, Icon, Button } from 'semantic-ui-react'
+import { Alert } from 'react-alert'
 
 function twoDecimals(price) {
   return price.toFixed(2)
 }
 
 class SingleProduct extends Component {
-  constructor() {
-    super()
-    this.componentDidMount = this.componentDidMount.bind(this)
-    this.onClick = this.onClick.bind(this)
-  }
+
 
   async componentDidMount() {
     await this.props.loadSingleProduct()
     console.log('FIX USER ID LATER!!!!!: ')
-    await this.props.loadCartProducts(1)
+    //await this.props.loadCartProducts(1)
     await this.props.loadReviews(this.props.match.params.productId)
   }
 
-  onClick(productId) {
-    this.props.loadProduct(productId)
-  }
 
   render() {
     const singleProduct = this.props.singleProduct
@@ -49,13 +43,31 @@ class SingleProduct extends Component {
           </a>
         </div>
         </Card.Content>
-        <Card.Content extra>
-          <Button color = 'green' animated onClick={() => {this.onClick(singleProduct.id)}}>
-              <Button.Content hidden>Add</Button.Content>
-              <Button.Content visible><i className="shop icon" /></Button.Content>
-          </Button>
-        </Card.Content>
-        {this.props.reviews && <Reviews reviews= {this.props.reviews} productId= {singleProduct.id} />}
+          <div className="ui vertical animated button" tabIndex="0">
+          <Card.Content extra>
+            <Alert >
+
+              {alert => (
+                <Button
+                  color = 'green' onClick={() => {
+                    alert.success(<div style={{
+                      border: `0.5px solid green`,
+                      borderRadius: `5px`,
+                      backgroundColor: `white`,
+                      padding: `5px`,
+                      fontColor: `#49fcff`,
+                      alignContent: `center`
+                    }}><a>{singleProduct.name}   </a><Icon name='arrow right' /> <Icon name='shop' /></div>)
+                    this.props.addProduct({ product: singleProduct, userId: this.props.currUser.id })
+                  }} animated>
+                  <Button.Content hidden>Add</Button.Content>
+                  <Button.Content visible><i className="shop icon" /></Button.Content>
+                </Button>
+              )}
+            </Alert>
+            </Card.Content>
+          </div>
+          {this.props.reviews && <Reviews reviews= {this.props.reviews} productId= {singleProduct.id} />}
       </Card>
     )
     //    {/* {singleProduct.reviews.map(review => (
@@ -68,6 +80,7 @@ class SingleProduct extends Component {
 
 const mapStateToProps = state => {
   return {
+    currUser: state.userState.currUser,
     singleProduct: state.productState.singleProduct,
     products: state.cartState.products,
     reviews: state.reviewState.reviewsByProduct
@@ -79,11 +92,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadSingleProduct: () => {
       dispatch(fetchSingleProduct(ownProps.match.params.productId))
     },
-    loadCartProducts: userId => {
-      dispatch(fetchCartProducts(userId))
-    },
-    loadProduct: productId => {
-      dispatch(fetchProductToAdd(productId))
+
+    addProduct: product => {
+      dispatch(addProduct(product))
     },
     loadReviews: productId => {
       dispatch(fetchReviewsByProduct(productId))

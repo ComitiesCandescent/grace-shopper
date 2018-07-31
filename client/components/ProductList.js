@@ -4,7 +4,7 @@ import {fetchAllProducts} from '../store/product'
 import {Card} from 'semantic-ui-react'
 import ProductCard from './ProductCard'
 
-class ProductList extends Component {
+export class ProductList extends Component {
   componentDidMount() {
     this.props.loadProducts()
   }

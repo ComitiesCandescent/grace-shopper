@@ -1,5 +1,5 @@
 const router = require(`express`).Router()
-const {User} = require(`../db/models`)
+const { User } = require(`../db/models`)
 module.exports = router
 
 // GET /api/users
@@ -16,19 +16,9 @@ router.get(`/`, async (req, res, next) => {
 router.post(`/`, async (req, res, next) => {
   try {
     const newUser = await User.create(req.body)
-    res.json(newUser)
+    res.status(201).json(newUser)
   } catch (error) {
     next(error)
-  }
-})
-
-// GET /api/users/email/:email
-router.get(`/email/:email`, async (req, res, next) => {
-  try {
-    const singleUser = await User.findByEmail(req.params.email)
-    res.json(singleUser)
-  } catch (err) {
-    next(err)
   }
 })
 
@@ -41,12 +31,23 @@ router.get(`/:userId`, async (req, res, next) => {
     next(err)
   }
 })
+// GET /api/users/email/:email
+router.get(`/email/:email`, async (req, res, next) => {
+  try {
+    const singleUser = await User.findByEmail(req.params.email)
+    res.json(singleUser)
+
+  } catch (err) {
+    console.error(err)
+    next(err)
+  }
+})
 
 // DELETE /api/users/:userId
 router.delete(`/:userId`, (req, res, next) => {
-  User.destroy({where: {id: req.params.userId}})
+  User.destroy({ where: { id: req.params.userId } })
     .then(() => {
       res.sendStatus(204)
     })
     .catch(next)
-  })
+})
