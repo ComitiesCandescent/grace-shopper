@@ -8,36 +8,104 @@ class Stripe extends Component {
     super(props)
     this.state = {
       complete: false,
-      currUser: {}
+      currUser: {},
+      billingInfo: {
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zipcode: 0
+      },
+      shippingInfo: {
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zipcode: 0
+      }
     }
+    this.handleChangeShip = this.handleChangeShip.bind(this)
+    this.handleChangeBill = this.handleChangeBill.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  componentDidMount() {
+    if (this.props.user.id) {
+      const user = this.props.user
+      this.setState({
+        billingInfo: {
+          ...this.state.billingInfo,
+          name: user.name,
+          address: user.street,
+          city: user.city,
+          state: user.state,
+          zipcode: user.zipcode
+        }
+      })
+    }
+  }
+  handleChangeShip(event) {
+    this.setState({
+      shippingInfo: {
+        ...this.state.shippingInfo,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+  handleChangeBill(event) {
+    this.setState({
+      billingInfo: {
+        ...this.state.billingInfo,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
   async handleSubmit(event) {
     event.preventDefault()
-    let {token} = await this.props.stripe.createToken({name: 'Name'})
+    let {token} = await this.props.stripe.createToken({
+      name: this.props.user.name
+    })
     let response = await fetch('/cart/charge', {
       method: 'POST',
       headers: {'Content-Type': 'text/plain'},
-      body: token.id
+      body: {id: token.id, price: this.props.totalCost}
     })
-
+    const order = {
+      orderProducts: this.props.products,
+      shippingAdd: this.state.shippingInfo,
+      billingAdd: this.state.billingInfo,
+      strype: {id: token.id},
+      totalPrice: this.props.totalCost,
+      userId: this.props.user.id
+    }
+    const newOrder = await Axios.post('api/cart/order', order)
+    this.props.emptyCart()
     if (response.ok) this.setState({complete: true})
   }
 
   render() {
     console.log(this.props)
-    if (this.state.complete) return <h1>Purchase Completed!</h1>
+    if (this.state.complete)
+      return (
+        <h1>
+          Purchase Completed! You bought ${this.props.totalCost} worth of grass!
+        </h1>
+      )
     return (
       <React.Fragment>
         <h3>Shipping Address</h3>
-        <UserForm />
+        <UserForm
+          onChange={this.handleChangeShip}
+          state={this.state.shippingInfo}
+        />
         <h3>Billing Address</h3>
-        <UserForm />
+        <UserForm
+          onChange={this.handleChangeBill}
+          state={this.state.billingInfo}
+        />
         <div className="checkout">
           <p>Would you like to complete the purchase?</p>
           <CardElement />
-          <button type="button" onClick={this.submit}>
+          <button type="button" onClick={this.handleSubmit}>
             Send
           </button>
         </div>
