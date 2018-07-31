@@ -1,5 +1,5 @@
 const db = require(`../server/db`)
-const {Product, User, Review, Cart} = require(`../server/db/models`)
+const { Product, User, Review, Cart } = require(`../server/db/models`)
 
 const grasses = [
   {
@@ -114,17 +114,16 @@ const reviews = [
 
 const carts = [
   {
-    userId: 1
-  },
-  {
-    userId: 2
+    userId: 1,
+    cartProducts: {}
+
   }
 ]
 
 // const seed = () => Promise.all(users.map(user => User.create(user))).then(() => Promise.all(grasses.map(grass => Product.create(grass)))).then(() => Promise.all(reviews.map(review => Review.create(review))))
 
 async function seed() {
-  await db.sync({force: true})
+  await db.sync({ force: true })
   const usersP = await Promise.all(users.map(user => User.create(user)))
   const grassesP = await Promise.all(
     grasses.map(grass => Product.create(grass))
@@ -138,7 +137,7 @@ async function seed() {
 const main = () => {
   console.log(`Syncing DB...`)
   db
-    .sync({force: true})
+    .sync({ force: true })
     .then(() => {
       console.log(`DB synced`)
     })

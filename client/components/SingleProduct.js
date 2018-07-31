@@ -18,17 +18,6 @@ class SingleProduct extends Component {
 
   }
 
-  onClick(product) {
-    this.props.alert.success(<div style={{
-      border: `0.5px solid green`,
-      borderRadius: `5px`,
-      backgroundColor: `white`,
-      padding: `5px`,
-      fontColor: `#49fcff`,
-      alignContent: `center`
-    }}><a>{this.props.name}   </a><Icon name='arrow right' /> <Icon name='shop' /></div>)
-    this.props.addProduct(product)
-  }
 
   render() {
     const singleProduct = this.props.singleProduct
@@ -63,7 +52,7 @@ class SingleProduct extends Component {
                       fontColor: `#49fcff`,
                       alignContent: `center`
                     }}><a>{singleProduct.name}   </a><Icon name='arrow right' /> <Icon name='shop' /></div>)
-                    this.props.addProduct(singleProduct)
+                    this.props.addProduct({ product: singleProduct, userId: this.props.currUser.id })
                   }} animated='vertical'>
                   <Button.Content hidden>Add</Button.Content>
                   <Button.Content visible>
@@ -87,6 +76,7 @@ class SingleProduct extends Component {
 
 const mapStateToProps = state => {
   return {
+    currUser: state.userState.currUser,
     singleProduct: state.productState.singleProduct,
     products: state.cartState.products,
     reviews: state.reviewState.reviewsByProduct

@@ -15,7 +15,7 @@ class ProductCard extends React.Component {
 
 
   handleClick = () => {
-    this.props.loadProduct(this.props.product)
+    this.props.loadProduct({ product: this.props.product, userId: this.props.currUser.id })
   }
 
   render() {
@@ -50,7 +50,11 @@ class ProductCard extends React.Component {
     )
   }
 }
-
+const mapStateToProps = state => {
+  return {
+    currUser: state.userState.currUser,
+  }
+}
 const mapDispatchToProps = dispatch => {
   return {
     loadProduct: product => {
@@ -59,4 +63,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(ProductCard)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
