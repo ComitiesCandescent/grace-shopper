@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../store'
 import { Menu } from 'semantic-ui-react'
-import { fetchCartProducts } from '../store/cart'
+import { fetchCartProducts, emptyCart } from '../store/cart'
 
 const getTotal = products => {
   let count = 0
@@ -140,7 +140,9 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleLogout: () => {
-      dispatch(logout())
+
+      dispatch(emptyCart())
+
     },
     loadCartProducts: userId => {
       dispatch(fetchCartProducts(userId))
