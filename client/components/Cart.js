@@ -39,11 +39,12 @@ const Cart = props => {
                       Quantity: {products[key].quantity}
                     </span>
                   </div>
-                  Total Cost: ${totalCost.toFixed(2)}
+
                 </div>
               </div>
             )
           })}
+          <a>Total Cost: ${totalCost.toFixed(2)}</a>
           <NavLink to="/checkout">
             <Button content="Checkout" />
           </NavLink>
