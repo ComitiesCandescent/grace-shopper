@@ -1,5 +1,5 @@
 const router = require(`express`).Router()
-const { User } = require(`../db/models`)
+const {User} = require(`../db/models`)
 module.exports = router
 
 // GET /api/users
@@ -36,7 +36,6 @@ router.get(`/email/:email`, async (req, res, next) => {
   try {
     const singleUser = await User.findByEmail(req.params.email)
     res.json(singleUser)
-
   } catch (err) {
     console.error(err)
     next(err)
@@ -45,7 +44,7 @@ router.get(`/email/:email`, async (req, res, next) => {
 
 // DELETE /api/users/:userId
 router.delete(`/:userId`, (req, res, next) => {
-  User.destroy({ where: { id: req.params.userId } })
+  User.destroy({where: {id: req.params.userId}})
     .then(() => {
       res.sendStatus(204)
     })
