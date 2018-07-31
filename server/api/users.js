@@ -49,4 +49,23 @@ router.delete(`/:userId`, (req, res, next) => {
       res.sendStatus(204)
     })
     .catch(next)
+<<<<<<< HEAD
+})
+
+// EDIT /api/users/:userId
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const [numUpdatedRows, [updatedUser]] = await User.update(req.body, {
+      where: {
+        id: req.params.userId
+      },
+      returning: true
+    })
+    res.json(updatedUser)
+  } catch (error) {
+    next(error)
+  }
+})
+=======
   })
+>>>>>>> master
