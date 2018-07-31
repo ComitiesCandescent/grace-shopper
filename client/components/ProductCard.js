@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { addProduct } from '../store/cart'
 import { Card, Image, Button, Icon } from 'semantic-ui-react'
-import { Alert } from 'react-alert'
-import ProductCardButton from './ProductCardButton';
 
-import { addProduct } from '../store/cart'
+import ProductCardButton from './ProductCardButton';
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -17,7 +15,6 @@ class ProductCard extends React.Component {
 
 
   handleClick = () => {
-    alert.show(`Added ${this.props.product.name} to your cart`)
     this.props.loadProduct(this.props.product)
   }
 
@@ -45,7 +42,7 @@ class ProductCard extends React.Component {
           </Card.Content>
           <Card.Content extra>
             <div className="ui vertical animated button" tabIndex="0">
-              <ProductCardButton handleClick={this.handleClick} />
+              <ProductCardButton name={product.name} handleClick={this.handleClick} />
             </div>
           </Card.Content>
         </Card >

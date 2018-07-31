@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
-import { fetchCartProducts, fetchProductToAdd } from '../store/cart'
-import { Card, Image, Icon } from 'semantic-ui-react'
+import { addProduct } from '../store/cart'
+import { Card, Image, Icon, Button } from 'semantic-ui-react'
+import { Alert } from 'react-alert'
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -18,7 +19,15 @@ class SingleProduct extends Component {
   }
 
   onClick(product) {
-    this.props.loadProduct(product)
+    this.props.alert.success(<div style={{
+      border: `0.5px solid green`,
+      borderRadius: `5px`,
+      backgroundColor: `white`,
+      padding: `5px`,
+      fontColor: `#49fcff`,
+      alignContent: `center`
+    }}><a>{this.props.name}   </a><Icon name='arrow right' /> <Icon name='shop' /></div>)
+    this.props.addProduct(product)
   }
 
   render() {
@@ -40,14 +49,29 @@ class SingleProduct extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className="ui vertical animated button" tabIndex="0">
-            <Button type="button"
-              className="ui button active"
-              onClick={this.onClick} animated='vertical'>
-              <Button.Content hidden>Add</Button.Content>
-              <Button.Content visible>
-                <Icon name='shop' />
-              </Button.Content>
-            </Button>
+
+            <Alert>
+              {alert => (
+                <Button type="button"
+                  className="ui button active"
+                  onClick={() => {
+                    alert.success(<div style={{
+                      border: `0.5px solid green`,
+                      borderRadius: `5px`,
+                      backgroundColor: `white`,
+                      padding: `5px`,
+                      fontColor: `#49fcff`,
+                      alignContent: `center`
+                    }}><a>{singleProduct.name}   </a><Icon name='arrow right' /> <Icon name='shop' /></div>)
+                    this.props.addProduct(singleProduct)
+                  }} animated='vertical'>
+                  <Button.Content hidden>Add</Button.Content>
+                  <Button.Content visible>
+                    <Icon name='shop' />
+                  </Button.Content>
+                </Button>
+              )}
+            </Alert>
           </div>
         </Card.Content>
       </Card>
@@ -73,7 +97,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(fetchSingleProduct(ownProps.match.params.productId))
     },
 
-    loadProduct: product => {
+    addProduct: product => {
       dispatch(addProduct(product))
     }
   }

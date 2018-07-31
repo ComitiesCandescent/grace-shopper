@@ -5383,7 +5383,7 @@ button.list-group-item-info.active:hover,
 a.list-group-item-info.active:focus,
 button.list-group-item-info.active:focus {
   color: #fff;
-  background-color: #31708f;
+  background-color: #dff4ff;
   border-color: #31708f;
 }
 .ui.vertical.animated.button {
@@ -5409,7 +5409,7 @@ button.list-group-item-warning:hover,
 a.list-group-item-warning:focus,
 button.list-group-item-warning:focus {
   color: #8a6d3b;
-  background-color: #faf2cc;
+  background-color: #49fcff;
 }
 a.list-group-item-warning.active,
 button.list-group-item-warning.active,

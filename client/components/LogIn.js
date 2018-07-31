@@ -1,32 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { auth } from '../store'
+import { fetchUserByEmail } from '../store'
 
-/**
- * COMPONENT
- */
-const Login = props => {
-  const { name, displayName, handleSubmit, error } = props
+class Login extends Component {
+  constructor() {
+    super()
+    this.state = {
+      email: ``,
+      password: ``
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-<<<<<<< HEAD
-  /**
-   * CONTAINER
-   *   Note that we have two different sets of 'mapStateToProps' functions -
-   *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
-   *   function, and share the same Component. This is a good example of how we
-   *   can stay DRY with interfaces that are very similar to each other!
-   */
-  const mapLogin = state => {
-    return {
-      name: `login`,
-      displayName: `Login`,
-      error: state.userState.currUser.error
-=======
   render() {
     return (
       <React.Fragment>
@@ -63,22 +52,21 @@ const Login = props => {
         </form>
       </React.Fragment>
     )
->>>>>>> master
-    }
   }
+}
 
-  const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-      handleSubmit: async (event, email) => {
-        try {
-          event.preventDefault()
-          const userAction = await dispatch(fetchUserByEmail(email))
-          ownProps.history.push(`/users/${userAction.user.id}`)
-        } catch (err) {
-          console.error(err)
-        }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    handleSubmit: async (event, email) => {
+      try {
+        event.preventDefault()
+        const userAction = await dispatch(fetchUserByEmail(email))
+        ownProps.history.push(`/users/${userAction.user.id}`)
+      } catch (err) {
+        console.error(err)
       }
     }
   }
+}
 
-  export default connect(null, mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(Login)
