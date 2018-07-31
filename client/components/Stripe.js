@@ -8,7 +8,6 @@ class Stripe extends Component {
     super(props)
     this.state = {
       complete: false,
-      currUser: {},
       billingInfo: {
         name: '',
         address: '',
@@ -22,11 +21,14 @@ class Stripe extends Component {
         city: '',
         state: '',
         zipcode: 0
-      }
+      },
+      promo: ''
     }
     this.handleChangeShip = this.handleChangeShip.bind(this)
     this.handleChangeBill = this.handleChangeBill.bind(this)
+    this.handleChangePromo = this.handleChangePromo.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handlePromoSubmit = this.handlePromoSubmit.bind(this)
   }
   componentDidMount() {
     if (this.props.user.id) {
@@ -59,6 +61,11 @@ class Stripe extends Component {
       }
     })
   }
+  handleChangePromo(event) {
+    this.setState({
+      promo: event.target.value
+    })
+  }
   async handleSubmit(event) {
     event.preventDefault()
     let {token} = await this.props.stripe.createToken({
@@ -83,13 +90,7 @@ class Stripe extends Component {
   }
 
   render() {
-    console.log(this.props)
-    if (this.state.complete)
-      return (
-        <h1>
-          Purchase Completed! You bought ${this.props.totalCost} worth of grass!
-        </h1>
-      )
+    if (this.state.complete) return <h1>Purchase Completed!</h1>
     return (
       <React.Fragment>
         <h3>Shipping Address</h3>
@@ -102,6 +103,10 @@ class Stripe extends Component {
           onChange={this.handleChangeBill}
           state={this.state.billingInfo}
         />
+        <form onSubmit={this.handlePromoSubmit}>
+          <input type="text" onChange={this.handleChangePromo} required />
+          <input type="submit" />
+        </form>
         <div className="checkout">
           <p>Would you like to complete the purchase?</p>
           <CardElement />
