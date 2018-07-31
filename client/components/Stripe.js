@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
 import {CardElement, injectStripe} from 'react-stripe-elements'
+import Axios from '../../node_modules/axios'
+import UserForm from './UserForm'
 
 class Stripe extends Component {
   constructor(props) {
     super(props)
-    this.state = {complete: false}
-    this.submit = this.submit.bind(this)
+    this.state = {
+      complete: false,
+      currUser: {}
+    }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async handleSubmit(event) {
@@ -21,16 +26,21 @@ class Stripe extends Component {
   }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>
-
+    if (this.state.complete) return <h1>Purchase Completed!</h1>
     return (
-      <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button type="button" onClick={this.handleSubmit}>
-          Send
-        </button>
-      </div>
+      <React.Fragment>
+        <h3>Shipping Address</h3>
+        <UserForm />
+        <h3>Billing Address</h3>
+        <UserForm />
+        <div className="checkout">
+          <p>Would you like to complete the purchase?</p>
+          <CardElement />
+          <button type="button" onClick={this.submit}>
+            Send
+          </button>
+        </div>
+      </React.Fragment>
     )
   }
 }

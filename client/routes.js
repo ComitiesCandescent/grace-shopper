@@ -6,7 +6,8 @@ import {
   Home,
   SingleProduct,
   Cart,
-  UserProfile
+  UserProfile,
+  EditUser
 } from './components'
 import Checkout from './components/Checkout'
 
@@ -19,6 +20,7 @@ const Routes = () => {
       <Route exact path="/login" component={Login} />
       <Route exact path="/checkout" component={Checkout} />
       <Route exact path="/:productId" component={SingleProduct} />
+      <Route exact path="/users/:userId/edit" component={EditUser} />
       <Route exact path="/users/:userId" component={UserProfile} />
       <Route exact path="/" component={Home} />
     </Switch>
