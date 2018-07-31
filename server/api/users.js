@@ -36,7 +36,6 @@ router.get(`/email/:email`, async (req, res, next) => {
   try {
     const singleUser = await User.findByEmail(req.params.email)
     res.json(singleUser)
-    console.log(`singleUser`, singleUser);
 
   } catch (err) {
     console.error(err)

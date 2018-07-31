@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_CART_PRODUCTS = `GET_CART_PRODUCTS`
 const ADD_PRODUCT = `ADD_PRODUCT`
 const REMOVE_PRODUCT = `REMOVE_PRODUCT`
+const EMPTY_CART = `EMPTY_CART`
 
 // Initial state
 const initialState = {
@@ -13,6 +14,10 @@ const initialState = {
 // Action creators
 const getCartProducts = products => ({
   type: GET_CART_PRODUCTS, products
+})
+
+export const emptyCart = () => ({
+  type: EMPTY_CART
 })
 
 const removeCartProduct = product => ({
@@ -30,7 +35,7 @@ export const addProduct = ({ userId, product }) => ({
 export const fetchCartProducts = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/cart/${userId}`)
-    dispatch(getCartProducts(res.data))
+    dispatch(getCartProducts(res.data.cartProducts))
   } catch (err) {
     console.error(err)
   }
@@ -53,6 +58,8 @@ export const deleteProduct = productId => async dispatch => {
 // Reducer
 export default function (state = initialState, action) {
   switch (action.type) {
+    case EMPTY_CART:
+      return initialState
     case GET_CART_PRODUCTS:
       return { products: action.products }
     case ADD_PRODUCT:
