@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUserByEmail } from '../store'
+import { fetchUserByEmail, fetchCartProducts } from '../store'
 
 class Login extends Component {
   constructor() {
@@ -61,6 +61,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       try {
         event.preventDefault()
         const userAction = await dispatch(fetchUserByEmail(email))
+        await dispatch(fetchCartProducts(userAction.user.id))
         ownProps.history.push(`/users/${userAction.user.id}`)
       } catch (err) {
         console.error(err)
