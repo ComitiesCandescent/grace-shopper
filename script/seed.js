@@ -97,6 +97,7 @@ const users = [
 
 const reviews = [
   {
+    name: 'Dominic',
     title: `G is for Grass`,
     body: `H is for happyness. - Will Smith`,
     stars: 4,
@@ -104,6 +105,7 @@ const reviews = [
     productId: 2
   },
   {
+    name: 'Dominic',
     title: `My house is on fire ...`,
     body: `I should not have boughten "Dead Grass on fire"...`,
     stars: 1,

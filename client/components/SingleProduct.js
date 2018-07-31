@@ -17,11 +17,11 @@ class SingleProduct extends Component {
     this.onClick = this.onClick.bind(this)
   }
 
-  componentDidMount() {
-    this.props.loadSingleProduct()
+  async componentDidMount() {
+    await this.props.loadSingleProduct()
     console.log('FIX USER ID LATER!!!!!: ')
-    this.props.loadCartProducts(1)
-    this.props.loadReviews(this.props.match.params.productId)
+    await this.props.loadCartProducts(1)
+    await this.props.loadReviews(this.props.match.params.productId)
   }
 
   onClick(productId) {
@@ -36,22 +36,26 @@ class SingleProduct extends Component {
         <Card.Content>
           <Card.Header>{singleProduct.name}</Card.Header>
           <Card.Meta>
-            <span className="date">Number of reviews or stars here??</span>
+            <span className="date">{this.props.reviews.length} reviews</span>
           </Card.Meta>
           <Card.Description>{singleProduct.description}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <i className="dollar sign icon">
-            {singleProduct.price ? twoDecimals(singleProduct.price) : null}
-          </i>
+        <div className="ui tag labels">
+          <a className="ui label">
+            <i className="dollar sign icon">
+              {singleProduct.price ? twoDecimals(singleProduct.price) : null}
+            </i>
+          </a>
+        </div>
         </Card.Content>
         <Card.Content extra>
-          <Button animated onClick={() => {this.onClick(singleProduct.id)}}>
+          <Button color = 'green' animated onClick={() => {this.onClick(singleProduct.id)}}>
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible><i className="shop icon" /></Button.Content>
           </Button>
         </Card.Content>
-        <Reviews reviews= {this.props.reviews} />
+        {this.props.reviews && <Reviews reviews= {this.props.reviews} productId= {singleProduct.id} />}
       </Card>
     )
     //    {/* {singleProduct.reviews.map(review => (

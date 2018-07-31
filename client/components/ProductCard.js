@@ -21,7 +21,7 @@ class ProductCard extends React.Component {
   render() {
     const product = this.props.product
     return (
-      <Card>
+      <Card color = 'green'>
         <Image src={product.imageUrl} />
         <Card.Content>
           <NavLink to={`/${product.id}`} activeClassName="active">
@@ -36,10 +36,14 @@ class ProductCard extends React.Component {
           <Card.Description>{product.description}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <i className="dollar sign icon">{twoDecimals(product.price)}</i>
+        <div className="ui tag labels">
+          <a className="ui label">
+            <i className="dollar sign icon">{twoDecimals(product.price)}</i>
+          </a>
+        </div>
         </Card.Content>
         <Card.Content extra>
-          <Button animated onClick={this.onClick}>
+          <Button color = 'green' animated onClick={this.onClick}>
             <Button.Content hidden>Add</Button.Content>
             <Button.Content visible>
               <i className="shop icon" />

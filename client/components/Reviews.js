@@ -1,20 +1,51 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchReviewsByProduct} from '../store/review'
+import {addNewReview} from '../store/review'
 import ReviewItem from './ReviewItem'
+import {Rating} from 'semantic-ui-react'
 
 class Reviews extends Component {
-    //  this.onClick = this.onClick.bind(this)
+  constructor(){
+    super()
+    this.state = {
+      description: '',
+      title: '',
+      reviews: [],
+      stars: {}
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleRate = this.handleRate.bind(this)
+  }
 
+  componentDidUpdate(prevProps){
+    if(this.props.reviews !== prevProps.reviews){
+      console.log('in if statement')
+      this.setState({
+        reviews: this.props.reviews
+      })
+    }
+  }
+  componentDidMount(){
+    this.setState({
+      reviews: this.props.reviews
+    })
+  }
 
-  // onClick(productId) {
-  //   this.props.loadProduct(productId)
-  // }
+  handleRate(e, { rating, maxRating }){
+    this.setState({stars:{
+      rating : rating,
+      maxRating: maxRating }})
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
 
   render() {
-    const reviews = this.props.reviews
+    const reviews = this.state.reviews
     console.log('this.props.productId: ', this.props.productId);
     console.log('reviews: ', reviews);
+    console.log('user', this.props.user)
     return (
       <div>
         <h2>Reviews:</h2>
@@ -25,31 +56,66 @@ class Reviews extends Component {
             }):
             <h2>No Reviews Yet</h2>}
         </div>
-        <div className="ui form">
+        {this.props.user.id !== undefined ? (<form
+          className="ui form"
+          onSubmit={event => {
+            this.props.handleSubmit(event, this.state, this.props); this.setState({
+              description: '',
+              title: ''
+            })}}
+        >
         <div className="field">
-          <label>Write a review</label>
-          <textarea rows="2"></textarea>
+          <label>Title</label>
+          <input
+              onChange={this.handleChange}
+              type="text"name="title"
+              value={this.state.title}/>
+        </div>
+        <div className="field">
+          <label>Write a review and rate it</label>
+          <textarea
+              onChange={this.handleChange}
+              required
+              type="text"
+              name="description"
+              value={this.state.description}
+              rows="2"/>
+            <Rating maxRating={5} onRate={this.handleRate} />
         </div>
           <button className="ui button" type="submit">Submit</button>
-        </div>
+        </form>) : <div className="ui warning message">
+                      <div className="header">
+                        You must login or signup before you can write a review!
+                      </div>
+                      Visit our login/signup pages, then try again
+                    </div>}
       </div>
     )
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     reviews: state.reviewState.reviewsByProduct
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    user: state.userState.currUser
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    handleSubmit: (event, data, props) => {
+      event.preventDefault()
+      console.log('props: ', props);
+      console.log('description', data.description)
+      dispatch(addNewReview({
+        body: data.description,
+        title: data.title,
+        name: props.user.name,
+        stars: data.stars.rating,
+        userId: props.user.id,
+        productId: props.productId
+      }))
+    }
+  }
+}
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     loadReviews: (id) => {
-//       console.log('id', id)
-//       dispatch(fetchReviewsByProduct(id))
-//     }
-//   }
-// }
 
-export default Reviews
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews)
