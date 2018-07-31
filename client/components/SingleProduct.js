@@ -1,19 +1,9 @@
-<<<<<<< HEAD
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
 import { addProduct } from '../store/cart'
 import { Card, Image, Icon, Button } from 'semantic-ui-react'
 import { Alert } from 'react-alert'
-=======
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/product'
-import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
-import {fetchReviewsByProduct} from '../store/review'
-import Reviews from './Reviews'
-import {Card, Image, Button} from 'semantic-ui-react'
->>>>>>> master
 
 function twoDecimals(price) {
   return price.toFixed(2)
@@ -24,14 +14,8 @@ class SingleProduct extends Component {
 
   componentDidMount() {
     this.props.loadSingleProduct()
-<<<<<<< HEAD
     console.log(`FIX USER ID LATER!!!!!: `)
 
-=======
-    console.log('FIX USER ID LATER!!!!!: ')
-    this.props.loadCartProducts(1)
-    this.props.loadReviews(this.props.match.params.productId)
->>>>>>> master
   }
 
   onClick(product) {
@@ -114,20 +98,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadSingleProduct: () => {
       dispatch(fetchSingleProduct(ownProps.match.params.productId))
     },
-<<<<<<< HEAD
 
     addProduct: product => {
       dispatch(addProduct(product))
-=======
-    loadCartProducts: userId => {
-      dispatch(fetchCartProducts(userId))
-    },
-    loadProduct: productId => {
-      dispatch(fetchProductToAdd(productId))
-    },
-    loadReviews: productId => {
-      dispatch(fetchReviewsByProduct(productId))
->>>>>>> master
     }
   }
 }
