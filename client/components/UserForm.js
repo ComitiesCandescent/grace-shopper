@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Input, TextArea, Button } from 'semantic-ui-react'
 
-const UserForm = () => {
+const UserForm = props => {
   return (
     <React.Fragment>
       <Form>
@@ -55,13 +55,37 @@ const UserForm = () => {
     </Form>
       {/* <form>
         <label htmlFor="name">Name </label>
-        <input name="name" type="text" required />
+        <input
+          name="name"
+          type="text"
+          value={props.state.name}
+          onChange={props.onChange}
+          required
+        />
         <label htmlFor="address">Street </label>
-        <input name="address" type="text" required />
+        <input
+          name="address"
+          type="text"
+          value={props.state.address}
+          onChange={props.onChange}
+          required
+        />
         <label htmlFor="city">City </label>
-        <input name="city" type="text" required />
+        <input
+          name="city"
+          type="text"
+          value={props.state.city}
+          onChange={props.onChange}
+          required
+        />
         <label htmlFor="state">State </label>
-        <input name="state" type="text" required />
+        <input
+          name="state"
+          type="text"
+          value={props.state.state}
+          onChange={props.onChange}
+          required
+        />
         <label htmlFor="zipcode" type="text">
           Zip Code
         </label>

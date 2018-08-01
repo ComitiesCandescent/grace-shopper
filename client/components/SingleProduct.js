@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
 import { addProduct } from '../store/cart'
-import {fetchReviewsByProduct} from '../store/review'
+import { fetchReviewsByProduct } from '../store/review'
 import Reviews from './Reviews'
 import { Card, Image, Icon, Button } from 'semantic-ui-react'
 import { Alert } from 'react-alert'
@@ -16,7 +16,7 @@ class SingleProduct extends Component {
 
   async componentDidMount() {
     await this.props.loadSingleProduct()
-    console.log('FIX USER ID LATER!!!!!: ')
+    console.log(`FIX USER ID LATER!!!!!: `)
     //await this.props.loadCartProducts(1)
     await this.props.loadReviews(this.props.match.params.productId)
   }
@@ -35,21 +35,21 @@ class SingleProduct extends Component {
           <Card.Description>{singleProduct.description}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-        <div className="ui tag labels">
-          <a className="ui label">
-            <i className="dollar sign icon">
-              {singleProduct.price ? twoDecimals(singleProduct.price) : null}
-            </i>
-          </a>
-        </div>
+          <div className="ui tag labels">
+            <a className="ui label">
+              <i className="dollar sign icon">
+                {singleProduct.price ? twoDecimals(singleProduct.price) : null}
+              </i>
+            </a>
+          </div>
         </Card.Content>
-          <div className="ui vertical animated button" tabIndex="0">
+        <div className="ui vertical animated button" tabIndex="0">
           <Card.Content extra>
             <Alert >
 
               {alert => (
                 <Button
-                  color = 'green' onClick={() => {
+                  color='green' onClick={() => {
                     alert.success(<div style={{
                       border: `0.5px solid green`,
                       borderRadius: `5px`,
@@ -65,9 +65,9 @@ class SingleProduct extends Component {
                 </Button>
               )}
             </Alert>
-            </Card.Content>
-          </div>
-          {this.props.reviews && <Reviews reviews= {this.props.reviews} productId= {singleProduct.id} />}
+          </Card.Content>
+        </div>
+        {this.props.reviews && <Reviews reviews={this.props.reviews} productId={singleProduct.id} />}
       </Card>
     )
     //    {/* {singleProduct.reviews.map(review => (

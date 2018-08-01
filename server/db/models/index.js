@@ -3,6 +3,7 @@ const Product = require(`./product`)
 const Review = require(`./review`)
 const Cart = require(`./cart`)
 const Orders = require(`./orders`)
+const Promo = require(`./promo`)
 // Cart should have orders table to link product to User
 
 Orders.belongsTo(User)
@@ -15,11 +16,12 @@ Review.belongsTo(User)
 User.hasMany(Review)
 
 Cart.belongsTo(User)
-User.hasOne(Cart, { as: `user` })
+User.hasOne(Cart)
 module.exports = {
   User,
   Product,
   Review,
   Cart,
-  Orders
+  Orders,
+  Promo
 }

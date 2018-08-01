@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import UserForm from './UserForm'
-import { Elements, StripeProvider } from 'react-stripe-elements'
+import {Elements, StripeProvider} from 'react-stripe-elements'
 import Stripe from './Stripe'
-import { connect } from 'react-redux'
+import {emptyCart} from '../store/cart'
+import {connect} from 'react-redux'
 
 const Checkout = props => {
   const products = props.products
@@ -18,7 +19,12 @@ const Checkout = props => {
         <div className="example">
           <h1>Place your billing info below</h1>
           <Elements>
-            <Stripe totalCost={totalCost} user={props.user} />
+            <Stripe
+              totalCost={totalCost}
+              user={props.user}
+              products={products}
+              emptyCart={props.emptyCart}
+            />
           </Elements>
         </div>
       </StripeProvider>
@@ -34,7 +40,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
+    emptyCart: () => {
+      dispatch(emptyCart())
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
