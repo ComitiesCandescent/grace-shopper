@@ -23,7 +23,9 @@ class Navbar extends Component {
     this.state = {}
     this.handleItemClick = this.handleItemClick.bind(this)
     if (this.currUser) {
+      this.props.guest = true
       this.loadCartProducts(this.currUser.id)
+
     }
   }
   componentDidMount() {
@@ -139,6 +141,7 @@ class Navbar extends Component {
 
 const mapState = state => {
   return {
+    guest: state.userState.guest,
     currUser: state.userState.currUser,
     isLoggedIn: !!state.userState.currUser.id,
     products: state.cartState.products
