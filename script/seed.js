@@ -120,12 +120,88 @@ const carts = [
 ]
 const promos = [
   {
+    name: '1DOL',
+    amount: 1
+  },
+  {
+    name: '2DOL',
+    amount: 2
+  },
+  {
+    name: '3DOL',
+    amount: 3
+  },
+  {
+    name: '4DOL',
+    amount: 4
+  },
+  {
     name: '5DOL',
     amount: 5
   },
   {
+    name: '6DOL',
+    amount: 6
+  },
+  {
+    name: '7DOL',
+    amount: 7
+  },
+  {
+    name: '8DOL',
+    amount: 8
+  },
+  {
+    name: '9DOL',
+    amount: 9
+  },
+  {
     name: '10DOL',
     amount: 10
+  },
+  {
+    name: '1DOL',
+    amount: 1
+  },
+  {
+    name: '11DOL',
+    amount: 11
+  },
+  {
+    name: '12DOL',
+    amount: 12
+  },
+  {
+    name: '13DOL',
+    amount: 13
+  },
+  {
+    name: '14DOL',
+    amount: 14
+  },
+  {
+    name: '15DOL',
+    amount: 15
+  },
+  {
+    name: '16DOL',
+    amount: 16
+  },
+  {
+    name: '17DOL',
+    amount: 17
+  },
+  {
+    name: '18DOL',
+    amount: 18
+  },
+  {
+    name: '19DOL',
+    amount: 9
+  },
+  {
+    name: '20DOL',
+    amount: 20
   }
 ]
 
