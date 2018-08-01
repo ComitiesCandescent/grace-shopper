@@ -17,7 +17,11 @@ export class ProductList extends Component {
     const products = this.props.products
     return (
       <div>
-        <h2>Grass For Sale</h2>
+        <h2 className="ui center aligned icon header">
+        Grass For Sale
+        <i className="arrow down icon" />
+        </h2>
+
         <Card.Group centered products={products}>
           {products.map(product => {
             return <ProductCard key={product.id} product={product} />

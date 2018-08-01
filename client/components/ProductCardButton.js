@@ -6,8 +6,8 @@ import { Button, Icon } from 'semantic-ui-react'
 class App extends Component {
   render() {
     return (
-      <Button type="button"
-        className="ui button active"
+      <Button
+        color = 'green'
         onClick={() => {
           this.props.alert.success(<div style={{
             border: `0.5px solid green`,
