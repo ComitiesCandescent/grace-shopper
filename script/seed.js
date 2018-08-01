@@ -1,5 +1,5 @@
 const db = require(`../server/db`)
-const {Product, User, Review, Cart, Promo} = require(`../server/db/models`)
+const { Product, User, Review, Cart, Promo } = require(`../server/db/models`)
 
 const grasses = [
   {
@@ -97,7 +97,7 @@ const users = [
 
 const reviews = [
   {
-    name: 'Dominic',
+    name: `Dominic`,
     title: `G is for Grass`,
     body: `H is for happyness. - Will Smith`,
     stars: 4,
@@ -105,7 +105,7 @@ const reviews = [
     productId: 2
   },
   {
-    name: 'Dominic',
+    name: `Dominic`,
     title: `My house is on fire ...`,
     body: `I should not have boughten "Dead Grass on fire"...`,
     stars: 1,
@@ -117,100 +117,103 @@ const reviews = [
 const carts = [
   {
     userId: 1,
-    cartProducts: {}
+    cartProducts: {},
+    session: `testing`
   }
 ]
 const promos = [
   {
-    name: '1DOL',
+    name: `1DOL`,
     amount: 1
   },
   {
-    name: '2DOL',
+    name: `2DOL`,
     amount: 2
   },
   {
-    name: '3DOL',
+    name: `3DOL`,
     amount: 3
   },
   {
-    name: '4DOL',
+    name: `4DOL`,
     amount: 4
   },
   {
-    name: '5DOL',
+    name: `5DOL`,
     amount: 5
   },
   {
-    name: '6DOL',
+    name: `6DOL`,
     amount: 6
   },
   {
-    name: '7DOL',
+    name: `7DOL`,
     amount: 7
   },
   {
-    name: '8DOL',
+    name: `8DOL`,
     amount: 8
   },
   {
-    name: '9DOL',
+    name: `9DOL`,
     amount: 9
   },
   {
-    name: '10DOL',
+    name: `10DOL`,
     amount: 10
   },
   {
-    name: '1DOL',
+    name: `1DOL`,
     amount: 1
   },
   {
-    name: '11DOL',
+    name: `11DOL`,
     amount: 11
   },
   {
-    name: '12DOL',
+    name: `12DOL`,
     amount: 12
   },
   {
-    name: '13DOL',
+    name: `13DOL`,
     amount: 13
   },
   {
-    name: '14DOL',
+    name: `14DOL`,
     amount: 14
   },
   {
-    name: '15DOL',
+    name: `15DOL`,
     amount: 15
   },
   {
-    name: '16DOL',
+    name: `16DOL`,
     amount: 16
   },
   {
-    name: '17DOL',
+    name: `17DOL`,
     amount: 17
   },
   {
-    name: '18DOL',
+    name: `18DOL`,
     amount: 18
   },
   {
-    name: '19DOL',
+    name: `19DOL`,
     amount: 9
   },
   {
-    name: '20DOL',
+    name: `20DOL`,
     amount: 20
+
+
   }
 ]
 
 // const seed = () => Promise.all(users.map(user => User.create(user))).then(() => Promise.all(grasses.map(grass => Product.create(grass)))).then(() => Promise.all(reviews.map(review => Review.create(review))))
 
 async function seed() {
-  await db.sync({force: true})
+  await db.sync({ force: true })
   const usersP = await Promise.all(users.map(user => User.create(user)))
   const grassesP = await Promise.all(
     grasses.map(grass => Product.create(grass))
@@ -225,7 +228,7 @@ async function seed() {
 const main = () => {
   console.log(`Syncing DB...`)
   db
-    .sync({force: true})
+    .sync({ force: true })
     .then(() => {
       console.log(`DB synced`)
     })

@@ -21,14 +21,39 @@ const NEW_USER = `NEW_USER`
 const GET_USER = `GET_USER`
 const REMOVE_USER = `REMOVE_USER`
 const EDIT_USER = `EDIT_USER`
+const SESSION_USER = `SESSION_USER`
+const LOGOUT_USER = `LOGOUT_USER`
 
 // Action creators
+
+const logOut = user => ({ type: LOGOUT_USER })
+const sessUser = user => ({ type: SESSION_USER, user })
 const gotNewUser = user => ({ type: NEW_USER, user })
 const gotUser = user => ({ type: GET_USER, user })
 const gotRemoveUser = () => ({ type: REMOVE_USER })
 const gotEditUser = user => ({ type: EDIT_USER, user })
-
+import { fetchCartProducts } from '../store/cart'
 // Thunk creators
+export const fetchSessUser = () => {
+  return async dispatch => {
+    try {
+      let { data } = await axios.get(`/auth/me`)
+      if (!isNaN(data)) {
+        let user = await axios.get(`/api/users/${data}`)
+
+        dispatch(fetchCartProducts(user.data.id))
+        dispatch(sessUser(user.data))
+      }
+      else {
+        dispatch(fetchCartProducts(data.sessionID))
+        dispatch(sessUser(data.sessionID))
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const fetchUser = userId => {
   return async dispatch => {
     try {
@@ -39,7 +64,16 @@ export const fetchUser = userId => {
     }
   }
 }
+export const logOutThunk = () => {
+  return () => {
+    try {
+      axios.post(`/auth/logout`)
 
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
 export const fetchUserByEmail = email => {
   return async dispatch => {
     try {
@@ -87,6 +121,11 @@ export const editUser = (userData, userId) => {
 // Reducer
 export default function (state = initialState, action) {
   switch (action.type) {
+    case SESSION_USER:
+      return {
+        ...state,
+        currUser: action.user,
+      }
     case NEW_USER:
       return {
         ...state,

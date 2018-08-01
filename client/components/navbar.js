@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { logout } from '../store'
+import { logout, fetchSessUser } from '../store'
 import { Menu } from 'semantic-ui-react'
 import { fetchCartProducts, emptyCart } from '../store/cart'
+import { logOutThunk } from '../store/user';
+import axios from 'axios';
 
 const getTotal = products => {
   let count = 0
@@ -24,13 +26,19 @@ class Navbar extends Component {
       this.loadCartProducts(this.currUser.id)
     }
   }
-
+  componentDidMount() {
+    this.props.fetchSessUser()
+  }
+  componentWillUnmount() {
+    axios.post(`/logout`)
+  }
   handleItemClick(event, { name }) {
     event.preventDefault()
     this.setState({ activeItem: name })
   }
 
   render() {
+
     const { activeItem } = this.state
     const products = this.props.products
     const isLoggedIn = this.props.isLoggedIn
@@ -140,14 +148,18 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleLogout: () => {
-
+      dispatch(logOutThunk())
       dispatch(emptyCart())
 
     },
     loadCartProducts: userId => {
       dispatch(fetchCartProducts(userId))
+    },
+    fetchSessUser: () => {
+      dispatch(fetchSessUser())
     }
   }
 }
+
 
 export default connect(mapState, mapDispatch)(Navbar)

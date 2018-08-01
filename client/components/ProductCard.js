@@ -15,7 +15,11 @@ class ProductCard extends React.Component {
 
 
   handleClick = () => {
-    this.props.loadProduct({ product: this.props.product, userId: this.props.currUser.id })
+    if (this.props.currUser.id) {
+      this.props.loadProduct({ product: this.props.product, userId: this.props.currUser.id })
+    } else {
+      this.props.loadProduct({ product: this.props.product, userId: this.props.currUser })
+    }
   }
 
   render() {
