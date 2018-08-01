@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 import React, { Component } from 'react'
 import { CardElement, injectStripe } from 'react-stripe-elements'
-=======
-import React, {Component} from 'react'
-import {CardElement, injectStripe} from 'react-stripe-elements'
 import { Button, Form } from 'semantic-ui-react'
->>>>>>> 9d1a294e51132741ff0fd846e7fef478fdfdcb4a
 import Axios from '../../node_modules/axios'
 import UserForm from './UserForm'
 
@@ -141,7 +136,7 @@ class Stripe extends Component {
             <label>Promo Code:</label>
             <input placeholder='Promo Code' onChange={this.handleChangePromo} />
           </Form.Field>
-          <Button color = 'green' type='submit'>Submit Promo Code</Button>
+          <Button color='green' type='submit'>Submit Promo Code</Button>
         </Form>
         {/* <form onSubmit={this.handlePromoSubmit}>
           <input type="text" onChange={this.handleChangePromo} />
@@ -151,7 +146,7 @@ class Stripe extends Component {
         <div className="checkout">
           <p>Would you like to complete the purchase?</p>
           <CardElement />
-          <Button color = 'green' onClick={this.handleSubmit}>
+          <Button color='green' onClick={this.handleSubmit}>
             Complete Purchase
           </Button>
         </div>
