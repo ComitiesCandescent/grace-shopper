@@ -14,6 +14,8 @@ function twoDecimals(price) {
 class SingleProduct extends Component {
   async componentDidMount() {
     await this.props.loadSingleProduct()
+    console.log(`FIX USER ID LATER!!!!!: `)
+    //await this.props.loadCartProducts(1)
     await this.props.loadReviews(this.props.match.params.productId)
   }
 
@@ -81,6 +83,11 @@ class SingleProduct extends Component {
         )}
       </Card>
     )
+    //    {/* {singleProduct.reviews.map(review => (
+    //         <li key={review.id}>
+    //           {review.name} wrote: {review.description}
+    //         </li>
+    //       ))} */}
   }
 }
 
@@ -98,6 +105,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadSingleProduct: () => {
       dispatch(fetchSingleProduct(ownProps.match.params.productId))
     },
+
     addProduct: product => {
       dispatch(addProduct(product))
     },

@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {postUser} from '../store'
+import history from '../history'
 
 class Form extends Component {
   constructor(props) {
@@ -27,9 +30,7 @@ class Form extends Component {
           onSubmit={event => this.props.handleSubmit(event, this.state)}
         >
           <div className="field">
-            <label>
-              <h3>Name</h3>
-            </label>
+            <label>Name</label>
             <input
               onChange={this.handleChange}
               required
@@ -38,12 +39,9 @@ class Form extends Component {
               placeholder="Name"
               value={this.state.name}
             />
-            {!this.state.name ? <p>Valid name required!</p> : null}
           </div>
           <div className="field">
-            <label>
-              <h3>Email</h3>
-            </label>
+            <label>Email</label>
             <input
               onChange={this.handleChange}
               required
@@ -52,12 +50,9 @@ class Form extends Component {
               placeholder="Email"
               value={this.state.email}
             />
-            {!this.state.email ? <p>Valid email required!</p> : null}
           </div>
           <div className="field">
-            <label>
-              <h3>Street Address</h3>
-            </label>
+            <label>Street Address</label>
             <input
               onChange={this.handleChange}
               required
@@ -66,12 +61,9 @@ class Form extends Component {
               placeholder="Street Address"
               value={this.state.street}
             />
-            {!this.state.street ? <p>Valid street address required!</p> : null}
           </div>
           <div className="field">
-            <label>
-              <h3>City</h3>
-            </label>
+            <label>City</label>
             <input
               onChange={this.handleChange}
               required
@@ -80,12 +72,9 @@ class Form extends Component {
               placeholder="City"
               value={this.state.city}
             />
-            {!this.state.city ? <p>Valid city required!</p> : null}
           </div>
           <div className="field">
-            <label>
-              <h3>State</h3>
-            </label>
+            <label>State</label>
             <select
               name="state"
               onChange={this.handleChange}
@@ -145,12 +134,9 @@ class Form extends Component {
               <option value="WI">Wisconsin</option>
               <option value="WY">Wyoming</option>
             </select>
-            {!this.state.state ? <p>Valid state required!</p> : null}
           </div>
           <div className="field">
-            <label>
-              <h3>Zip Code</h3>
-            </label>
+            <label>Zip Code</label>
             <input
               onChange={this.handleChange}
               required
@@ -159,12 +145,9 @@ class Form extends Component {
               placeholder="Zip Code"
               value={this.state.zipcode}
             />
-            {!this.state.zipcode ? <p>Valid zip code required!</p> : null}
           </div>
           <div className="field">
-            <label>
-              <h3>Password</h3>
-            </label>
+            <label>Password</label>
             <input
               onChange={this.handleChange}
               required
@@ -173,7 +156,6 @@ class Form extends Component {
               placeholder="Password"
               value={this.state.password}
             />
-            {!this.state.password ? <p>Valid password required!</p> : null}
           </div>
           <button className="ui button" type="submit" tabIndex="0">
             Submit
@@ -184,4 +166,18 @@ class Form extends Component {
   }
 }
 
-export default Form
+const mapDispatchToProps = dispatch => {
+  return {
+    handleSubmit: async (event, userData) => {
+      try {
+        event.preventDefault()
+        const userAction = await dispatch(postUser(userData))
+        history.push(`/users/${userAction.user.id}`)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Form)

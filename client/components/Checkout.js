@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {Component} from 'react'
+import UserForm from './UserForm'
 import {Elements, StripeProvider} from 'react-stripe-elements'
 import Stripe from './Stripe'
-import {emptyCart} from '../store'
+import {emptyCart} from '../store/cart'
 import {connect} from 'react-redux'
 
 const Checkout = props => {
@@ -30,7 +31,6 @@ const Checkout = props => {
     </React.Fragment>
   )
 }
-
 const mapStateToProps = state => {
   return {
     user: state.userState.currUser,
@@ -38,7 +38,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     emptyCart: () => {
       dispatch(emptyCart())

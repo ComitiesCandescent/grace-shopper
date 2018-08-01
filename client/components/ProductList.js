@@ -18,8 +18,8 @@ export class ProductList extends Component {
     return (
       <div>
         <h2 className="ui center aligned icon header">
-          Grass For Sale
-          <i className="arrow down icon" />
+        Grass For Sale
+        <i className="arrow down icon" />
         </h2>
 
         <Card.Group centered products={products}>
