@@ -115,7 +115,8 @@ const reviews = [
 const carts = [
   {
     userId: 1,
-    cartProducts: {}
+    cartProducts: {},
+    session: `testing`
 
   }
 ]

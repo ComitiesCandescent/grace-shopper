@@ -17,6 +17,7 @@ class Login extends Component {
   }
 
   render() {
+
     return (
       <React.Fragment>
         <form
@@ -61,6 +62,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       try {
         event.preventDefault()
         const userAction = await dispatch(fetchUserByEmail(email))
+
         await dispatch(fetchCartProducts(userAction.user.id))
         ownProps.history.push(`/users/${userAction.user.id}`)
       } catch (err) {

@@ -15,7 +15,7 @@ Review.belongsTo(User)
 User.hasMany(Review)
 
 Cart.belongsTo(User)
-User.hasOne(Cart, { as: `user` })
+User.hasOne(Cart)
 module.exports = {
   User,
   Product,
