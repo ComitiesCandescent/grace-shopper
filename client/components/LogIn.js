@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchUserByEmail, fetchCartProducts } from '../store'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {fetchUserByEmail, fetchCartProducts} from '../store'
 
 class Login extends Component {
   constructor() {
@@ -13,22 +13,21 @@ class Login extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
+    this.setState({[event.target.name]: event.target.value})
   }
 
   render() {
-
     return (
       <React.Fragment>
-        <div className='ui middle aligned center aligned grid'>
+        <div className="ui middle aligned center aligned grid">
           <div className="column">
             <h2 className="ui teal image header" />
-            <div className="content">
-              Log-in to your account
-          </div>
+            <div className="content">Login to your account</div>
             <form
               className="ui large form"
-              onSubmit={event => this.props.handleSubmit(event, this.state.email)}
+              onSubmit={event =>
+                this.props.handleSubmit(event, this.state.email)
+              }
             >
               <div className="ui stacked segment">
                 <div className="field">
@@ -57,9 +56,13 @@ class Login extends Component {
                     />
                   </div>
                 </div>
-                <button className="ui fluid large green submit button" type="submit" tabIndex="0">
+                <button
+                  className="ui fluid large green submit button"
+                  type="submit"
+                  tabIndex="0"
+                >
                   Login
-            </button>
+                </button>
               </div>
             </form>
           </div>
@@ -71,7 +74,7 @@ class Login extends Component {
 
 const mapState = state => {
   return {
-    guest: state.userState.guest,
+    guest: state.userState.guest
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -79,11 +82,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleSubmit: async (event, email) => {
       try {
         event.preventDefault()
-
         const userAction = await dispatch(fetchUserByEmail(email))
-
         await dispatch(fetchCartProducts(userAction.user.id))
-
         ownProps.history.push(`/users/${userAction.user.id}`)
       } catch (err) {
         console.error(err)
@@ -93,4 +93,3 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 export default connect(mapState, mapDispatchToProps)(Login)
-
