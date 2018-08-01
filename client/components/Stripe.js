@@ -119,6 +119,7 @@ class Stripe extends Component {
     if (this.state.complete) return <h1>Purchase Completed!</h1>
     return (
       <React.Fragment>
+        <h1>Place your billing info below</h1>
         <h3>Shipping Address</h3>
         <UserForm
           onChange={this.handleChangeShip}

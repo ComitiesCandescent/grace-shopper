@@ -16,7 +16,6 @@ const Checkout = props => {
     <React.Fragment>
       <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
         <div className="example">
-          <h1>Place your billing info below</h1>
           <Elements>
             <Stripe
               totalCost={totalCost}
