@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {CardElement, injectStripe} from 'react-stripe-elements'
+import React, { Component } from 'react'
+import { CardElement, injectStripe } from 'react-stripe-elements'
 import Axios from '../../node_modules/axios'
 import UserForm from './UserForm'
 
@@ -9,20 +9,20 @@ class Stripe extends Component {
     this.state = {
       complete: false,
       billingInfo: {
-        name: '',
-        address: '',
-        city: '',
-        state: '',
+        name: ``,
+        address: ``,
+        city: ``,
+        state: ``,
         zipcode: 0
       },
       shippingInfo: {
-        name: '',
-        address: '',
-        city: '',
-        state: '',
+        name: ``,
+        address: ``,
+        city: ``,
+        state: ``,
         zipcode: 0
       },
-      promo: '',
+      promo: ``,
       total: 0
     }
     this.handleChangeShip = this.handleChangeShip.bind(this)
@@ -72,34 +72,41 @@ class Stripe extends Component {
   }
   async handleSubmit(event) {
     event.preventDefault()
-    let {token} = await this.props.stripe.createToken({
+    let { token } = await this.props.stripe.createToken({
       name: this.props.user.name
     })
-    let response = await fetch('/cart/charge', {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: {id: token.id, price: this.props.totalCost}
+    let response = await fetch(`/cart/charge`, {
+      method: `POST`,
+      headers: { 'Content-Type': `text/plain` },
+      body: { id: token.id, price: this.props.totalCost }
     })
     const order = {
       orderProducts: this.props.products,
       shippingAdd: this.state.shippingInfo,
       billingAdd: this.state.billingInfo,
-      strype: {id: token.id},
+      strype: { id: token.id },
       totalPrice: this.state.total,
       userId: this.props.user.id
     }
-    const newOrder = await Axios.post('/api/cart/order', order)
+    const newOrder = await Axios.post(`/api/cart/order`, order)
+    if (response.ok) this.setState({ complete: true })
     this.props.emptyCart()
-    if (response.ok) this.setState({complete: true})
+    const key = this.props.user.id
+    if (key) { await Axios.delete(`/api/cart/${this.props.user.id}`) } else {
+      const { data } = await Axios.get(`/auth/me`)
+      await Axios.delete(`/api/cart/${data.sessionID}`)
+    }
+
+
   }
   async handlePromoSubmit(event) {
     event.preventDefault()
     const promo = this.state.promo
-    const promoResult = await Axios.put('/api/promo', {
+    const promoResult = await Axios.put(`/api/promo`, {
       promo: promo,
       total: this.state.total
     })
-    if (typeof promoResult.data === 'string') {
+    if (typeof promoResult.data === `string`) {
       window.alert(promoResult.data)
     } else {
       this.setState({

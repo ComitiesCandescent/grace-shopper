@@ -89,12 +89,16 @@ router.post(`/charge`, async (req, res, next) => {
 })
 
 // DELETE /api/cart/:userId
-router.delete(`/:userId`, (req, res, next) => {
-  Cart.destroy({ where: { userId: req.params.userId } })
-    .then(() => {
-      res.sendStatus(204)
-    })
-    .catch(next)
+router.delete(`/:userId`, async (req, res, next) => {
+  const key = req.params.userId
+
+  if (!isNaN(Number(key))) {
+    await Cart.delete({ where: { userId: Number(key) } })
+
+  } else {
+    await Cart.delete({ where: { session: key } })
+  }
+  res.status(204)
 })
 
 module.exports = router

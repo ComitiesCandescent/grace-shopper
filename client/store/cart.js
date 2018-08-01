@@ -5,6 +5,7 @@ const GET_CART_PRODUCTS = `GET_CART_PRODUCTS`
 const ADD_PRODUCT = `ADD_PRODUCT`
 const REMOVE_PRODUCT = `REMOVE_PRODUCT`
 const EMPTY_CART = `EMPTY_CART`
+const EMPTY_CART2 = `EMPTY_CART2`
 
 // Initial state
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
 const getCartProducts = products => ({
   type: GET_CART_PRODUCTS, products
 })
+
 
 export const emptyCart = () => ({
   type: EMPTY_CART
