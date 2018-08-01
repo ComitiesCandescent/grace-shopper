@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, fetchCartProducts} from '../store'
 import {Menu} from 'semantic-ui-react'
-import {fetchCartProducts} from '../store/cart'
 
 const getTotal = products => {
   let count = 0

@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/product'
-import {fetchCartProducts, fetchProductToAdd} from '../store/cart'
+import {
+  fetchSingleProduct,
+  fetchCartProducts,
+  fetchProductToAdd
+} from '../store'
 import {Card, Image} from 'semantic-ui-react'
 
 function twoDecimals(price) {

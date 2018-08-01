@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
-import {addProduct} from '../store/cart'
+import {addProduct} from '../store'
 import {Card, Image, Button} from 'semantic-ui-react'
 
 function twoDecimals(price) {
