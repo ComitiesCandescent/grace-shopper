@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {postUser} from '../store'
+import history from '../history'
 
 class Form extends Component {
   constructor(props) {
@@ -165,13 +166,13 @@ class Form extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     handleSubmit: async (event, userData) => {
       try {
         event.preventDefault()
         const userAction = await dispatch(postUser(userData))
-        ownProps.history.push(`/users/${userAction.user.id}`)
+        history.push(`/users/${userAction.user.id}`)
       } catch (err) {
         console.error(err)
       }

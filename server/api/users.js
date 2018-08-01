@@ -2,8 +2,6 @@ const router = require(`express`).Router()
 const { User } = require(`../db/models`)
 module.exports = router
 
-// GET /api/users
-
 
 // POST /api/users
 router.post(`/`, async (req, res, next) => {
@@ -24,6 +22,7 @@ router.get(`/:userId`, async (req, res, next) => {
     next(err)
   }
 })
+
 // GET /api/users/email/:email
 router.get(`/email/:email`, async (req, res, next) => {
   try {
@@ -35,6 +34,7 @@ router.get(`/email/:email`, async (req, res, next) => {
   }
 })
 
+// GET /api/users
 router.get(`/`, async (req, res, next) => {
   try {
     const users = await User.findAll()

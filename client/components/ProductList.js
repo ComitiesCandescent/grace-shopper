@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchAllProducts} from '../store/product'
+import {fetchAllProducts} from '../store'
 import {Card} from 'semantic-ui-react'
 import ProductCard from './ProductCard'
 
