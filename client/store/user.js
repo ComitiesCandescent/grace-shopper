@@ -26,25 +26,24 @@ const LOGOUT_USER = `LOGOUT_USER`
 
 // Action creators
 
-const logOut = () => ({ type: LOGOUT_USER })
-const sessUser = user => ({ type: SESSION_USER, user })
-const gotNewUser = user => ({ type: NEW_USER, user })
-const gotUser = user => ({ type: GET_USER, user })
-const gotRemoveUser = () => ({ type: REMOVE_USER })
-const gotEditUser = user => ({ type: EDIT_USER, user })
-import { fetchCartProducts } from '../store/cart'
+const logOut = () => ({type: LOGOUT_USER})
+const sessUser = user => ({type: SESSION_USER, user})
+const gotNewUser = user => ({type: NEW_USER, user})
+const gotUser = user => ({type: GET_USER, user})
+const gotRemoveUser = () => ({type: REMOVE_USER})
+const gotEditUser = user => ({type: EDIT_USER, user})
+import {fetchCartProducts} from '../store/cart'
+
 // Thunk creators
 export const fetchSessUser = () => {
   return async dispatch => {
     try {
-      let { data } = await axios.get(`/auth/me`)
+      let {data} = await axios.get(`/auth/me`)
       if (!isNaN(data)) {
         let user = await axios.get(`/api/users/${data}`)
-
         dispatch(fetchCartProducts(user.data.id))
         dispatch(sessUser(user.data))
-      }
-      else {
+      } else {
         dispatch(fetchCartProducts(data.sessionID))
         dispatch(sessUser(data.sessionID))
       }
@@ -111,7 +110,7 @@ export const deleteUser = userId => {
 export const editUser = (userData, userId) => {
   return async dispatch => {
     try {
-      const { data } = await axios.put(`/api/users/${userId}`, userData)
+      const {data} = await axios.put(`/api/users/${userId}`, userData)
       return dispatch(gotEditUser(data))
     } catch (err) {
       console.error(err)
@@ -120,14 +119,14 @@ export const editUser = (userData, userId) => {
 }
 
 // Reducer
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case LOGOUT_USER:
-      return { ...state, currUser: initialState.currUser, guest: true }
+      return {...state, currUser: initialState.currUser, guest: true}
     case SESSION_USER:
       return {
         ...state,
-        currUser: action.user,
+        currUser: action.user
       }
     case NEW_USER:
       return {
