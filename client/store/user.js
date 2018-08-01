@@ -26,7 +26,7 @@ const LOGOUT_USER = `LOGOUT_USER`
 
 // Action creators
 
-const logOut = user => ({ type: LOGOUT_USER })
+const logOut = () => ({ type: LOGOUT_USER })
 const sessUser = user => ({ type: SESSION_USER, user })
 const gotNewUser = user => ({ type: NEW_USER, user })
 const gotUser = user => ({ type: GET_USER, user })
@@ -65,10 +65,11 @@ export const fetchUser = userId => {
   }
 }
 export const logOutThunk = () => {
-  return () => {
+  return dispatch => {
     try {
       axios.post(`/auth/logout`)
-
+      history.push(`/`)
+      return dispatch(logOut())
     } catch (err) {
       console.error(err)
     }
@@ -121,6 +122,8 @@ export const editUser = (userData, userId) => {
 // Reducer
 export default function (state = initialState, action) {
   switch (action.type) {
+    case LOGOUT_USER:
+      return { ...state, currUser: initialState.currUser, guest: true }
     case SESSION_USER:
       return {
         ...state,
