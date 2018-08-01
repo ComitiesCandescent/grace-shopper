@@ -32,7 +32,6 @@ class Stripe extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handlePromoSubmit = this.handlePromoSubmit.bind(this)
   }
-
   componentDidMount() {
     if (this.props.user.id) {
       const user = this.props.user
@@ -51,7 +50,6 @@ class Stripe extends Component {
       total: this.props.totalCost
     })
   }
-
   handleChangeShip(event) {
     this.setState({
       shippingInfo: {
@@ -60,7 +58,6 @@ class Stripe extends Component {
       }
     })
   }
-
   handleChangeBill(event) {
     this.setState({
       billingInfo: {
@@ -69,13 +66,11 @@ class Stripe extends Component {
       }
     })
   }
-
   handleChangePromo(event) {
     this.setState({
       promo: event.target.value
     })
   }
-
   async handleSubmit(event) {
     event.preventDefault()
     let { token } = await this.props.stripe.createToken({
@@ -105,7 +100,6 @@ class Stripe extends Component {
 
 
   }
-
   async handlePromoSubmit(event) {
     event.preventDefault()
     const promo = this.state.promo
@@ -160,5 +154,4 @@ class Stripe extends Component {
     )
   }
 }
-
 export default injectStripe(Stripe)

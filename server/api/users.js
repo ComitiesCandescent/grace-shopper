@@ -1,6 +1,7 @@
 const router = require(`express`).Router()
-const {User} = require(`../db/models`)
+const { User } = require(`../db/models`)
 module.exports = router
+
 
 // POST /api/users
 router.post(`/`, async (req, res, next) => {
@@ -19,21 +20,6 @@ router.get(`/:userId`, async (req, res, next) => {
     res.json(singleUser)
   } catch (err) {
     next(err)
-  }
-})
-
-// PUT /api/users/:userId
-router.put('/:userId', async (req, res, next) => {
-  try {
-    const [numUpdatedRows, [updatedUser]] = await User.update(req.body, {
-      where: {
-        id: req.params.userId
-      },
-      returning: true
-    })
-    res.json(updatedUser)
-  } catch (error) {
-    next(error)
   }
 })
 
@@ -60,7 +46,7 @@ router.get(`/`, async (req, res, next) => {
 
 // DELETE /api/users/:userId
 router.delete(`/:userId`, (req, res, next) => {
-  User.destroy({where: {id: req.params.userId}})
+  User.destroy({ where: { id: req.params.userId } })
     .then(() => {
       res.sendStatus(204)
     })

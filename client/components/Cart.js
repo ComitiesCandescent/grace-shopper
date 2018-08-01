@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCartProducts} from '../store'
+import {fetchCartProducts} from '../store/cart'
 import {NavLink} from 'react-router-dom'
 import {Button} from 'semantic-ui-react'
 

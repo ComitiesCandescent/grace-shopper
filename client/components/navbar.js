@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
-import {
-  fetchSessUser,
-  fetchCartProducts,
-  emptyCart,
-  logOutThunk
-} from '../store'
+import {fetchSessUser} from '../store'
 import {Menu} from 'semantic-ui-react'
+import {fetchCartProducts, emptyCart} from '../store/cart'
+import {logOutThunk} from '../store/user'
 import axios from 'axios'
 
 const getTotal = products => {
@@ -30,15 +27,12 @@ class Navbar extends Component {
       this.loadCartProducts(this.currUser.id)
     }
   }
-
   componentDidMount() {
     this.props.fetchSessUser()
   }
-
   componentWillUnmount() {
     axios.post(`/auth/logout`)
   }
-
   handleItemClick(event, {name}) {
     event.preventDefault()
     this.setState({activeItem: name})
