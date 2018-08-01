@@ -5,7 +5,7 @@ import Stripe from './Stripe'
 import { connect } from 'react-redux'
 
 const Checkout = props => {
-  const products = this.props.products
+  const products = props.products
   let totalCost = 0
   for (let key in products) {
     if (products[key].id) {
@@ -18,7 +18,7 @@ const Checkout = props => {
         <div className="example">
           <h1>Place your billing info below</h1>
           <Elements>
-            <Stripe totalCost={totalCost} user={this.props.user} />
+            <Stripe totalCost={totalCost} user={props.user} />
           </Elements>
         </div>
       </StripeProvider>
