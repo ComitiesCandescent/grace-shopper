@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_CART_PRODUCTS = `GET_CART_PRODUCTS`
 const ADD_PRODUCT = `ADD_PRODUCT`
 const REMOVE_PRODUCT = `REMOVE_PRODUCT`
+const EMPTY_CART = `EMPTY_CART`
 
 // Initial state
 const initialState = {
@@ -12,8 +13,11 @@ const initialState = {
 
 // Action creators
 const getCartProducts = products => ({
-  type: GET_CART_PRODUCTS,
-  products
+  type: GET_CART_PRODUCTS, products
+})
+
+export const emptyCart = () => ({
+  type: EMPTY_CART
 })
 
 const removeCartProduct = product => ({
@@ -21,25 +25,26 @@ const removeCartProduct = product => ({
   product
 })
 
-export const addProduct = product => ({
+export const addProduct = ({ userId, product }) => ({
   type: ADD_PRODUCT,
+  userId,
   product
 })
 
 // Thunk creators
 export const fetchCartProducts = userId => async dispatch => {
   try {
-    const res = await axios.get(`/api/${userId}/cart`)
-    dispatch(getCartProducts(res.data))
+    const { data } = await axios.get(`/api/cart/${userId}`)
+    dispatch(getCartProducts(data.cartProducts))
   } catch (err) {
     console.error(err)
   }
 }
 
-// export const fetchProductToAdd = productId => async dispatch => {
+// export const addProduct = product => async dispatch => {
 //   try {
-//     const res = await axios.get(`/api/products/${productId}`)
-//     dispatch(addProduct(res.data))
+
+//     dispatch(addProductAct(res.data))
 //   } catch (err) {
 //     console.error(err)
 //   }
@@ -49,19 +54,29 @@ export const deleteProduct = productId => async dispatch => {
   const res = await axios.delete(``)
 }
 
+
 // Reducer
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
+    case EMPTY_CART:
+      return initialState
+    case GET_CART_PRODUCTS:
+      return { products: action.products }
     case ADD_PRODUCT:
-      const newProducts = {...state.products}
-      const newProduct = {...action.product}
+      const newProducts = { ...state.products }
+      const newProduct = { ...action.product }
       if (newProducts[newProduct.name]) {
         newProducts[newProduct.name].quantity += 1
       } else {
         newProducts[newProduct.name] = newProduct
         newProducts[newProduct.name].quantity = 1
       }
-      return {products: newProducts}
+      (async function () {
+        if (action.userId) {
+          await axios.put(`/api/cart/${action.userId}`, { products: newProducts })
+        }
+      })();
+      return { products: newProducts }
     default:
       return state
   }

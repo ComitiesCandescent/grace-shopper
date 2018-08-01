@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCartProducts} from '../store'
+import {fetchCartProducts} from '../store/cart'
 import {NavLink} from 'react-router-dom'
 import {Button} from 'semantic-ui-react'
 
@@ -10,6 +10,12 @@ const twoDecimals = price => {
 
 const Cart = props => {
   const products = props.products
+  let totalCost = 0
+  for (let key in products) {
+    if (products[key].id) {
+      totalCost += products[key].price * products[key].quantity
+    }
+  }
   return (
     <div className="ui items">
       {Object.keys(products).length ? (
@@ -37,6 +43,7 @@ const Cart = props => {
               </div>
             )
           })}
+          <a>Total Cost: ${totalCost.toFixed(2)}</a>
           <NavLink to="/checkout">
             <Button content="Checkout" />
           </NavLink>

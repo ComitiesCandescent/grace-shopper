@@ -29,15 +29,14 @@ if (process.env.NODE_ENV === `test`) {
 if (process.env.NODE_ENV !== `production`) require(`../secrets`)
 
 // passport registration
-passport.serializeUser((user, done) => done(null, user.id))
+passport.serializeUser((user, done) => {
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await db.models.user.findById(id)
-    done(null, user)
-  } catch (err) {
-    done(err)
-  }
+  done(null, user.id)
+})
+passport.deserializeUser((user, done) => {
+
+  done(null, user)
+
 })
 
 const createApp = () => {
@@ -56,8 +55,8 @@ const createApp = () => {
     session({
       secret: process.env.SESSION_SECRET || `my best friend is Cody`,
       store: sessionStore,
-      resave: false,
-      saveUninitialized: false
+      resave: true,
+      saveUninitialized: true
     })
   )
   app.use(passport.initialize())

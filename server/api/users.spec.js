@@ -52,7 +52,7 @@ describe(`User routes`, () => {
             email: `knthslai1@gmail.com`,
             password: `bones`
           })
-          .expect(201) //should be 201
+          .expect(201)
         const newStudent = await User.findById(res.body.id)
         expect(newStudent.name).to.be.equal('Kenneth Lai')
       })

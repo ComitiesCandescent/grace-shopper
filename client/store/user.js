@@ -21,14 +21,39 @@ const NEW_USER = `NEW_USER`
 const GET_USER = `GET_USER`
 const REMOVE_USER = `REMOVE_USER`
 const EDIT_USER = `EDIT_USER`
+const SESSION_USER = `SESSION_USER`
+const LOGOUT_USER = `LOGOUT_USER`
 
 // Action creators
-const gotNewUser = user => ({type: NEW_USER, user})
-const gotUser = user => ({type: GET_USER, user})
-const gotRemoveUser = () => ({type: REMOVE_USER})
-const gotEditUser = user => ({type: EDIT_USER, user})
 
+const logOut = () => ({ type: LOGOUT_USER })
+const sessUser = user => ({ type: SESSION_USER, user })
+const gotNewUser = user => ({ type: NEW_USER, user })
+const gotUser = user => ({ type: GET_USER, user })
+const gotRemoveUser = () => ({ type: REMOVE_USER })
+const gotEditUser = user => ({ type: EDIT_USER, user })
+import { fetchCartProducts } from '../store/cart'
 // Thunk creators
+export const fetchSessUser = () => {
+  return async dispatch => {
+    try {
+      let { data } = await axios.get(`/auth/me`)
+      if (!isNaN(data)) {
+        let user = await axios.get(`/api/users/${data}`)
+
+        dispatch(fetchCartProducts(user.data.id))
+        dispatch(sessUser(user.data))
+      }
+      else {
+        dispatch(fetchCartProducts(data.sessionID))
+        dispatch(sessUser(data.sessionID))
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const fetchUser = userId => {
   return async dispatch => {
     try {
@@ -39,7 +64,17 @@ export const fetchUser = userId => {
     }
   }
 }
-
+export const logOutThunk = () => {
+  return dispatch => {
+    try {
+      axios.post(`/auth/logout`)
+      history.push(`/`)
+      return dispatch(logOut())
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
 export const fetchUserByEmail = email => {
   return async dispatch => {
     try {
@@ -76,7 +111,7 @@ export const deleteUser = userId => {
 export const editUser = (userData, userId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/users/${userId}`, userData)
+      const { data } = await axios.put(`/api/users/${userId}`, userData)
       return dispatch(gotEditUser(data))
     } catch (err) {
       console.error(err)
@@ -85,8 +120,15 @@ export const editUser = (userData, userId) => {
 }
 
 // Reducer
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
+    case LOGOUT_USER:
+      return { ...state, currUser: initialState.currUser, guest: true }
+    case SESSION_USER:
+      return {
+        ...state,
+        currUser: action.user,
+      }
     case NEW_USER:
       return {
         ...state,
