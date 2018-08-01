@@ -41,7 +41,13 @@ class ProductCard extends React.Component {
             <Card.Description>{product.description}</Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <i className="dollar sign icon">{twoDecimals(product.price)}</i>
+          <div className="ui tag labels">
+          <a className="ui label">
+            <i className="dollar sign icon">
+              {product.price ? twoDecimals(product.price) : null}
+            </i>
+          </a>
+        </div>
           </Card.Content>
           <Card.Content extra>
             <div className="ui vertical animated button" tabIndex="0">

@@ -45,7 +45,7 @@ const Cart = props => {
           })}
           <a>Total Cost: ${totalCost.toFixed(2)}</a>
           <NavLink to="/checkout">
-            <Button content="Checkout" />
+            <Button color = 'green' content="Checkout" />
           </NavLink>
         </React.Fragment>
       ) : (
