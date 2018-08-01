@@ -8,7 +8,6 @@ class Stripe extends Component {
     super(props)
     this.state = {
       complete: false,
-      currUser: {},
       billingInfo: {
         name: '',
         address: '',
@@ -22,11 +21,15 @@ class Stripe extends Component {
         city: '',
         state: '',
         zipcode: 0
-      }
+      },
+      promo: '',
+      total: 0
     }
     this.handleChangeShip = this.handleChangeShip.bind(this)
     this.handleChangeBill = this.handleChangeBill.bind(this)
+    this.handleChangePromo = this.handleChangePromo.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handlePromoSubmit = this.handlePromoSubmit.bind(this)
   }
   componentDidMount() {
     if (this.props.user.id) {
@@ -42,6 +45,9 @@ class Stripe extends Component {
         }
       })
     }
+    this.setState({
+      total: this.props.totalCost
+    })
   }
   handleChangeShip(event) {
     this.setState({
@@ -59,6 +65,11 @@ class Stripe extends Component {
       }
     })
   }
+  handleChangePromo(event) {
+    this.setState({
+      promo: event.target.value
+    })
+  }
   async handleSubmit(event) {
     event.preventDefault()
     let {token} = await this.props.stripe.createToken({
@@ -74,22 +85,32 @@ class Stripe extends Component {
       shippingAdd: this.state.shippingInfo,
       billingAdd: this.state.billingInfo,
       strype: {id: token.id},
-      totalPrice: this.props.totalCost,
+      totalPrice: this.state.total,
       userId: this.props.user.id
     }
-    const newOrder = await Axios.post('api/cart/order', order)
+    const newOrder = await Axios.post('/api/cart/order', order)
     this.props.emptyCart()
     if (response.ok) this.setState({complete: true})
   }
+  async handlePromoSubmit(event) {
+    event.preventDefault()
+    const promo = this.state.promo
+    const promoResult = await Axios.put('/api/promo', {
+      promo: promo,
+      total: this.state.total
+    })
+    if (typeof promoResult.data === 'string') {
+      window.alert(promoResult.data)
+    } else {
+      this.setState({
+        total: this.state.total - promoResult.data
+      })
+      window.alert(`You got ${promoResult.data} off your purchase`)
+    }
+  }
 
   render() {
-    console.log(this.props)
-    if (this.state.complete)
-      return (
-        <h1>
-          Purchase Completed! You bought ${this.props.totalCost} worth of grass!
-        </h1>
-      )
+    if (this.state.complete) return <h1>Purchase Completed!</h1>
     return (
       <React.Fragment>
         <h3>Shipping Address</h3>
@@ -102,6 +123,11 @@ class Stripe extends Component {
           onChange={this.handleChangeBill}
           state={this.state.billingInfo}
         />
+        <form onSubmit={this.handlePromoSubmit}>
+          <input type="text" onChange={this.handleChangePromo} />
+          <input type="submit" />
+        </form>
+        <h6>Total: {this.state.total} </h6>
         <div className="checkout">
           <p>Would you like to complete the purchase?</p>
           <CardElement />
