@@ -22,16 +22,15 @@ class ProductCard extends React.Component {
     const product = this.props.product
     return (
       <React.Fragment>
-
-        <Card>
-          <Image src={product.imageUrl} />
-          <Card.Content>
-            <NavLink to={`/${product.id}`} activeClassName="active">
-              <Card.Header>{product.name}</Card.Header>
-            </NavLink>
-            <Card.Meta>
-              <div className="extra">
-                Rating:
+      <Card color = 'green'>
+        <Image src={product.imageUrl} />
+        <Card.Content>
+          <NavLink to={`/${product.id}`} activeClassName="active">
+            <Card.Header>{product.name}</Card.Header>
+          </NavLink>
+          <Card.Meta>
+            <div className="extra">
+              Rating:
               <div className="ui star rating" data-rating="3" />
               </div>
             </Card.Meta>

@@ -2,8 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {fetchReviewById} from '../store/review'
-import {Card, Image, Button} from 'semantic-ui-react'
+import {Card, Image, Button, Rating} from 'semantic-ui-react'
 import Reviews from './Reviews';
+const timeAgo = require('node-time-ago');
 
 class ReviewItem extends React.Component {
   // constructor() {
@@ -25,14 +26,19 @@ class ReviewItem extends React.Component {
     const review = this.props.review
     console.log('review: ', review);
     return(
-      <div className="item">
+
+      <div className="green ui card">
         <div className="content">
-          <a className="header">Dummy Header</a>
+          <a className="header">{review.title}</a>
+          <div class="meta">
+            <span class="right floated time">Written {timeAgo(review.createdAt)} by {review.name}</span>
+          </div>
           <div className="description">
             <p>{review.body}</p>
           </div>
-          <div className="extra">
-            <div className="ui rating" data-rating={review.stars === undefined ? review.stars.toString() : ''} data-max-rating="5"/>
+          <div className="extra content">
+            {/* <div className="ui star rating" data-rating={review.stars === undefined ? review.stars.toString() : ''} data-max-rating="5"/> */}
+            <Rating icon='star' defaultRating={review.stars.toString()} maxRating={5} disabled/>
           </div>
         </div>
       </div>
