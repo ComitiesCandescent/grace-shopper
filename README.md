@@ -10,4 +10,4 @@ Check out our deployed Heroku website! Linked at the top of the repo.
 
 ## To download and run on your local host
 
-To try our app, `git clone` this repo, `npm install`, and run `npm start`. Then check it out on localhost:8080.
+To check out the code yourself, `git clone` this repo, `npm install`, and run `npm start`. Then check it out on localhost:8080.
